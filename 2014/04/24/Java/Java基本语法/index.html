@@ -168,7 +168,8 @@
 <li>Java 语言严格<code>区分大小写</code>，好比 main 和 Main 是完全不同的概念。</li>
 <li>一个 Java 源文件里可以定义多个 Java 类，但其中<code>最多有一个</code>类被定义成 public 类。若源文件中包括了 public 类，源文件必须和该 public 类同名（没有源文件名随便起）。</li>
 <li>一个源文件中包含 N 个 Java 类时，编译后会生成 N 份字节码文件，即每个类都会生成一份单独的 .class文件，且字节码文件名和其对应的类名相同。</li>
-<li>每一个类必须拥有 main 方法才能运行,因为 main 方法是程序的入口。</li>
+<li>每一个类必须拥有 main 方法才能运行,因为 main 方法是程序的入口。<a id="more"></a>
+</li>
 </ol>
 <h2 id="关键字与保留字"><a href="#关键字与保留字" class="headerlink" title="关键字与保留字"></a>关键字与保留字</h2><ul>
 <li><p>关键字：在编程语言中有一些事先定义的，有着特殊含义和用途的单词。</p>
@@ -255,6 +256,64 @@
 <pre><code>-----&gt;不擅长做字符串的连接操作,性能太低.
 </code></pre><hr>
 <p>解决方案: 使用可变的字符串,内容改变之后,对象依然不变.<br>StringBuidler/StringBuffer:<br>——面试——————-<br>StringBuffer  :特点: 线程安全性较高,但是性能较低.                 多线程使用StringBuffer.<br>StringBuilder :特点: 线程安全性较低,当时性能较高. 推荐        单线程使用StringBuilder.</p>
+<h2 id="package语句"><a href="#package语句" class="headerlink" title="package语句"></a>package语句</h2><p>编译和运行带有包名的类<br>编译带包名的java文件：必须要使用参数: -d 文件夹<br>javac -d . Hello.java</p>
+<h2 id="import语句"><a href="#import语句" class="headerlink" title="import语句"></a>import语句</h2><p>语法1： import 类的全限定名;<br>import 完整包名.类名;<br>语法2:import java.util.*;</p>
+<h2 id="表示去java-util包下寻找被使用到的类。"><a href="#表示去java-util包下寻找被使用到的类。" class="headerlink" title="表示去java.util包下寻找被使用到的类。"></a>表示去java.util包下寻找被使用到的类。</h2><p>静态导入：告诉编译器去哪一个包下的指定的类中去找某个静态方法或字段。<br>语法1： import static 类的全限定名.静态成员;<br>import static java.lang.Math.PI;<br>import static java.lang.Math.max;<br>语法2:import static java.lang.Math.<em>;<br>表示去java.lang.Math类中寻找被使用到的静态成员。<br>注意：</em> 只能表示静态成员，不能表示实例成员。<br>静态导入的可读性差,一般很少用,大家了解用法即可</p>
+<h2 id="访问权限修饰符"><a href="#访问权限修饰符" class="headerlink" title="访问权限修饰符"></a>访问权限修饰符</h2><p>①　private(类私有)：本类内部可以访问，同包内不能访问，不能被子类继承。<br>②　无(包私有)：本类内部可以访问，同包其他类也可以访问，能被同包的子类继承。不同包子类不能继承和访问。<br>③　protected（包和子类私有）：本类内部可以访问，不同包的子类也可以访问，同包其他类也可以访问，能被子类所继承。<br>④　public(公共)：任何地方都可以访问，能继承到子类。<br>注意：类的访问修饰符只有 public和缺省，即public class A{}或者class A{}</p>
+<p>final本身的含义是“不可改变的/最终的”，它可以修饰非抽象类，非抽象方法和变量。</p>
+<p>注意：构造方法不能使用final修饰，因为构造方法不能被继承，肯定是最终的。</p>
+<p>什么时候把方法设计成final的呢？<br>1.在构造器里调用的初始化方法。<br>2.只想被子类调用，不想被子类复写的方法，如：父类提供基本业务算法</p>
+<p>常量名规范：常量名符合标识符，单词全部大写，单词间使用”_”(下划线)隔开。</p>
+<p>final修饰基本类型变量：表示该变量的值不能改变，即不能用“=”号重新赋值。<br>final修饰引用类型变量：表示该变量的引用的地址不能变，而不是引用地址里的内容不能变。</p>
+<p>只要满足以下条件就可以把一个类设计成final类：<br>①　某类不是专门为继承而设计。<br>②　出于安全考虑，类的实现细节不许改动。<br>③　确信该类不会再被拓展。<br>java里final修饰的类有很多，比如八大基本数据类型包装类和String类等。</p>
+<p>子类到底继承了父类的哪些成员:<br>   1):SubClass类能继承SuperClass类中的public和protected成员(字段、方法、内部类)。<br>   2):当SubClass和SuperClass类是位于同一包中，SubClass类会继承SuperClass类中的默认访问权限成员。<br>   3):私有成员和构造器，绝对继承不到。构造器不存在继承体系中,只能调用</p>
+<h2 id="子类方法覆盖"><a href="#子类方法覆盖" class="headerlink" title="子类方法覆盖"></a>子类方法覆盖</h2><p>方法覆写的原则（一同两小一大）：<br>一同：<br>①　实例方法签名必须相同。 (方法签名= 方法名 + 方法的参数列表)<br>两小：<br>②　子类方法的返回值类型是父类方法的返回值类型的子类或相同类。<br>③　子类方法声明抛出的异常应比父类方法声明抛出的异常更小或相等。<br>子类方法中声明抛出的异常小于或等于父类方法声明抛出异常类型；<br>子类方法可以同时声明抛出多个属于父类方法声明抛出异常类的子类(RuntimeException类型除外)；<br>一大：<br>④　子类方法的访问权限比父类方法访问权限更大或相等。</p>
+<p>判断是否是覆写方法的必杀技：@Override标签：若方法是覆写方法，在方法前或上贴上该注解， 编译通过表示覆写成功，否则，编译报错。</p>
+<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><p>异常：指的是程序在执行过程中，出现的非正常的情况，最终会导致线程的非正常停止。</p>
+<p>异常的祖先是Throwable，有如下两个子类：</p>
+<pre><code>Error：表示错误，错误产生后程序员不能通过代码的方式纠正，只能事先避免，好比绝症。
+Exception：表示异常，异常产生后程序员可以通过代码的方式纠正，使程序继续运行，是必须要处理的
+</code></pre><p>Throwable中的常用方法</p>
+<pre><code>public void printStackTrace()；打印异常的详细信息
+public String getMessage()；获取发生异常的原因
+</code></pre><h3 id="finally"><a href="#finally" class="headerlink" title="finally"></a>finally</h3><p>finaly关键字，用于表示一个代码块。特点，无论是否有异常，最终都会执行finally代码块<br>目的：释放资源</p>
+<p>语法有两种：<br>    try-finally<br>    try-catch-finally</p>
+<h2 id="面试"><a href="#面试" class="headerlink" title="面试"></a>面试</h2><p>1):说说Error和Exception的区别.<br>    Error:是不应该使用代码来解决的错误<br>    Exception:应该使用代码的方式来解决的异常,不解决最终导致JVM异常停止</p>
+<p>2):final,finally,finalize的区别.<br>    final:修饰符,表示最终.修饰变量表示的是常量,值不能被修改.修饰方法表示该方法不能被子类所重写.修饰类表示的是该类不能被继承<br>    finally:表示的是一个代码块,这个代码块的特点是无论是否有异常,都会被执行<br>    finalize:这个是Object类上的方法,这个方法是给GC回收对象时调用的,该方法只会被调用1次,我们不要乱来</p>
+<p>3):return和finally谁先执行.<br>    先return在执行finally</p>
+<p>4):无论是否有异常,finally代码块中的代码都会执行,这句话对吗?<br>    不对,System.exit()可以退出JVM,JVM都退出了,代码怎么执行啊? </p>
+<p>当一个方法在执行过程中,数据出现异常时,就应该使用throw抛出一个异常对象,返回给方法的调用者,异常也是一种返回类型</p>
+<h3 id="带异常的方法重写"><a href="#带异常的方法重写" class="headerlink" title="带异常的方法重写"></a>带异常的方法重写</h3><p>一同两小一大<br>异常的总类少 异常的类型小<br>同 子类方法覆盖</p>
+<h3 id="异常分类"><a href="#异常分类" class="headerlink" title="异常分类"></a>异常分类</h3><h2 id="异常的分类"><a href="#异常的分类" class="headerlink" title="异常的分类:"></a>异常的分类:</h2><p>Exception分成两大类:<br>   1):编译时期异常:Checked:Exception类和他的子类,除了RuntimeException家族其他的就是编译时期异常.<br>   2):运行时期异常:Runtime: RuntimeExeption类和RuntimeException的子类.</p>
+<p>编译时异常: 要求我们必须处理异常(throws/try-catch),不处理,则编译不能通过.<br>运行时异常: 可处理,可不处理.</p>
+<p>推荐使用RuntimeException.</p>
+<h3 id="异常的转型"><a href="#异常的转型" class="headerlink" title="异常的转型"></a>异常的转型</h3><p>将编译时异常转换成运行时异常,保持异常链的传递</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line">// 异常的转型 将编译时异常转换成运行时异常,保持异常链的传递</div><div class="line">	public static void work() &#123;</div><div class="line">			try &#123;</div><div class="line">				new FileInputStream(&quot;a&quot;);</div><div class="line">			&#125; catch (FileNotFoundException e) &#123;</div><div class="line">				throw new RuntimeException(e);</div><div class="line">			&#125;</div><div class="line">		</div><div class="line">	&#125;</div><div class="line">```### 自定义异常</div><div class="line">建议继承 RutimeException</div><div class="line">重写 至少 3个方法## 构造方法</div><div class="line"></div><div class="line">子类初始化:    子类的构造器第一行必须调用父类的构造器	如果父类有默认的无参构造器，我们可以不用显示调用，编译器会帮我们在编译时加上	如果父类没有无参构造，则必须使用super手动调用父类的构造器，否则编译不能通过## 隐藏问题</div><div class="line"></div><div class="line"></div><div class="line">所谓隐藏就是“遮蔽”的意思。　①满足继承的访问权限下，隐藏父类字段：若子类中定义的字段和父类中的字段名相同(不管类型)，此时就是隐藏父类字段，此时只能通过super访问被隐藏的字段。②隐藏本类字段：若同类中某局部变量名和字段名相同，此时就是隐藏本类字段，此时只能通过this访问被隐藏的字段。③满足继承的访问权限下，隐藏父类静态方法：若子类定义的静态方法的签名和父类中的静态方法签名相同，那么此时就是隐藏父类静态方法。## object 对象</div><div class="line"></div><div class="line"></div><div class="line">### equals 方法在非空对象引用上实现相等关系：</div><div class="line"></div><div class="line">自反性：对于任何非空引用值 x，x.equals(x) 都应返回 true。</div><div class="line">对称性：对于任何非空引用值 x 和 y，当且仅当 y.equals(x) 返回 true 时，x.equals(y) 才应返回 true。</div><div class="line">传递性：对于任何非空引用值 x、y 和 z，如果 x.equals(y) 返回 true，并且 y.equals(z) 返回 true，那么 x.equals(z) 应返回 true。</div><div class="line">一致性：对于任何非空引用值 x 和 y，多次调用 x.equals(y) 始终返回 true 或始终返回 false，前提是对象上 equals 比较中所用的信息没有被修改。</div><div class="line">对于任何非空引用值 x，x.equals(null) 都应返回 false。</div><div class="line">Object 类的 equals 方法实现对象上差别可能性最大的相等关系；即，对于任何非空引用值 x 和 y，当且仅当 x 和 y 引用同一个对象时，此方法才返回 true（x == y 具有值 true）。</div><div class="line"></div><div class="line">注意：当此方法被重写时，通常有必要重写 hashCode 方法，以维护 hashCode 方法的常规协定，该协定声明相等对象必须具有相等的哈希码。</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">### hashCode</div><div class="line"></div><div class="line">public int hashCode()</div><div class="line">返回该对象的哈希码值。支持此方法是为了提高哈希表（例如 java.util.Hashtable 提供的哈希表）的性能。</div><div class="line">#### hashCode 的常规协定是：</div><div class="line"></div><div class="line">在 Java 应用程序执行期间，在对同一对象多次调用 hashCode 方法时，必须一致地返回相同的整数，前提是将对象进行 equals 比较时所用的信息没有被修改。从某一应用程序的一次执行到同一应用程序的另一次执行，该整数无需保持一致。</div><div class="line">如果根据 equals(Object) 方法，两个对象是相等的，那么对这两个对象中的每个对象调用 hashCode 方法都必须生成相同的整数结果。</div><div class="line">如果根据 equals(java.lang.Object) 方法，两个对象不相等，那么对这两个对象中的任一对象上调用 hashCode 方法不 要求一定生成不同的整数结果。但是，程序员应该意识到，为不相等的对象生成不同整数结果可以提高哈希表的性能。</div><div class="line">实际上，由 Object 类定义的 hashCode 方法确实会针对不同的对象返回不同的整数。（这一般是通过将该对象的内部地址转换成一个整数来实现的，但是 JavaTM 编程语言不需要这种实现技巧。）</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">返回：</div><div class="line">此对象的一个哈希码值。</div><div class="line">另请参见：</div><div class="line"></div><div class="line"></div><div class="line">### toString</div><div class="line"></div><div class="line">public String toString()</div><div class="line">返回该对象的字符串表示。通常， toString 方法会返回一个“以文本方式表示”此对象的字符串。结果应是一个简明但易于读懂的信息表达式。建议所有子类都重写此方法。</div><div class="line">Object 类的 toString 方法返回一个字符串，该字符串由类名（对象是该类的一个实例）、at 标记符“@”和此对象哈希码的无符号十六进制表示组成。换句话说，该方法返回一个字符串，它的值等于：</div><div class="line"></div><div class="line">getClass().getName() + &apos;@&apos; + Integer.toHexString(hashCode())</div><div class="line"> </div><div class="line">返回：</div><div class="line">该对象的字符串表示形式</div><div class="line"></div><div class="line">## 多态</div><div class="line"></div><div class="line">父类指向了子类对象的引用的现象称为多态。语法格式：boolean b = 对象A   instanceof  类B;注意：instanceof使用时，对象和类型之间必须是要有关系的，否则编译就报错其实在开发中instanceof很少使用，因为在开发中，我们是知道对象的真是类型的，直接就强转了，很少去做判断若SuperClass是SubClass的父类或其接口：1.若doWork方法只存在于SubClass类中，不存在于SuperClass 类中。SuperClass 类型的变量不能调用到subClass中的方法2.若doWork方法是SuperClass和SubClass类中的静态方法，此时子类doWork方法被隐藏，调用的是父类的doWork方法，此时变量obj调用doWork方法时不具备多态特征，也就不存在多态。（由于编译的时候编译器会把 调用者直接改为类）3.若doWork方法是子类覆写父类的方法，此时变量obj调用的doWork方法实际上是子类里的doWork方法。(运行多态)### 构造代码块</div><div class="line"></div><div class="line">直接定义在类中，与方法平行，在创建对象的时候执行。每创建一个对象执行一次特点:优先于构造方法执行,每次实例化对象之前都会执行构造代码块。其实编译时就是把这个代码块中的代码放到了构造方法中代码的前面。其实就是把构造代码块中的代码放到构造方法中所有代码的前面,位于this(),super()之后成员变量的赋值,优先于构造代码块</div></pre></td></tr></table></figure>
+<p>class Demo {<br>    String name = “a”;</p>
+<pre><code>Demo() {
+    System.out.println(&quot;构造方法&quot;);
+}
+
+//构造代码块
+{
+    System.out.println(&quot;构造代码块&quot;);
+}
+</code></pre><p>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">编译中间代码</div></pre></td></tr></table></figure>
+<p>class Demo {<br>    String name;</p>
+<pre><code>Demo() {
+   name = &quot;a&quot;;
+   System.out.println(&quot;构造代码块&quot;);
+    System.out.println(&quot;构造方法&quot;);
+}
+</code></pre><p>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## 静态代码块</div><div class="line"></div><div class="line">使用static修饰的构造代码块,称为静态代码块,用于初始化类中的静态成员变量.其特点是:1.当字节码被加载到JVM的时候执行2.只会执行1次</div></pre></td></tr></table></figure>
+<p>class Demo {<br>    static int num = 100;<br>    static {<br>        System.out.println(“static .. code”);<br>        num = 10;<br>    }<br>}</p>
+<p>```</p>
+<h2 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h2><p>在java中如果一个方法的方法体没有意义,就不应该有方法体，这种没有方法体的方法我们称为抽象方法,必须使用abstract修饰,该类中有抽象方法,就必须定义成抽象类。</p>
+<p>使用abstract修饰且没有方法体的方法，称为抽象方法。<br>特点：<br>①　使用抽象abstract修饰，方法没有方法体，留给子类去实现。<br>②　抽象方法修饰符不能是private 和 final以及static，为什么？<br>③　抽象方法必须定义在抽象类或接口中。</p>
+<h2 id="一般的：习惯性把abstract写在方法访问修饰符的后面，一看就知道是抽象方法。"><a href="#一般的：习惯性把abstract写在方法访问修饰符的后面，一看就知道是抽象方法。" class="headerlink" title="一般的：习惯性把abstract写在方法访问修饰符的后面，一看就知道是抽象方法。"></a>一般的：习惯性把abstract写在方法访问修饰符的后面，一看就知道是抽象方法。</h2><p>使用abstract关键字修饰的类。<br>特点：<br>①　不能创建实例即不能new一个抽象类。(不能创建对象)<br>②　可以不包含抽象方法，若一旦包含，该类必须作为抽象类。<br>③　若子类没有实现父类所有的抽象方法，那么子类也得作为抽象类(抽象派生类)。<br>④　构造方法不能都定义成私有的，否则不能有子类(创建子类对象前先调用父类构造方法)。<br>⑤　抽象类不能使用final修饰，因为必须有子类，抽象方法才能得以实现。</p>
+<h2 id="⑥-是不完整的类，需作为基类，子类去拓展和实现它的功能。"><a href="#⑥-是不完整的类，需作为基类，子类去拓展和实现它的功能。" class="headerlink" title="⑥　是不完整的类，需作为基类，子类去拓展和实现它的功能。"></a>⑥　是不完整的类，需作为基类，子类去拓展和实现它的功能。</h2><p>注意：抽象类中可以没有抽象的方法，但是有抽象方法的类一定是抽象类</p>
 
       
 
@@ -363,8 +422,8 @@
     </a>
   
   
-    <a href="/2014/03/08/Java/Java工作原理/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Java 运行原理</div>
+    <a href="/2014/04/18/Java/Java异常机制/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java 异常机制</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -497,6 +556,18 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">运行</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">异常</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">基础</a>
               </li>
              
@@ -505,11 +576,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">运行</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">原理</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -553,22 +620,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">UIWebView</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">手势</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">URL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Encode</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Xcode</a>
               </li>
              
@@ -581,7 +632,19 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">权限</a>
+                <a href="javascript:void(0)" class="js-tag color4">URL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Encode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">UIWebView</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">手势</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -594,6 +657,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">scheme</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">权限</a>
               </li>
              
               <li class="article-tag-list-item">

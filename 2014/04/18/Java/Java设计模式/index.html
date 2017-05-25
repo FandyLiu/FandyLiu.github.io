@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://fandyliu.github.io">
-  <title>Tag: 函数 | Fandy&#39;s Blog</title>
+  <title>Java 设计模式 | Fandy&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="wo ha ha">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Fandy&#39;s Blog">
-<meta property="og:url" content="https://fandyliu.github.io/tags/函数/index.html">
+  <meta name="description" content="总体来说设计模式分为三大类：创建型模式，共五种：工厂方法模式、抽象工厂模式、单例模式、建造者模式、原型模式。 结构型模式，共七种：适配器模式、装饰器模式、代理模式、外观模式、桥接模式、组合模式、享元模式。 行为型模式，共十一种：策略模式、模板方法模式、观察者模式、迭代子模式、责任链模式、命令模式、备忘录模式、状态模式、访问者模式、中介者模式、解释器模式。 单例设计模式目的：保证某一个类在整个应用中">
+<meta name="keywords" content="设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 设计模式">
+<meta property="og:url" content="https://fandyliu.github.io/2014/04/18/Java/Java设计模式/index.html">
 <meta property="og:site_name" content="Fandy&#39;s Blog">
-<meta property="og:description" content="wo ha ha">
+<meta property="og:description" content="总体来说设计模式分为三大类：创建型模式，共五种：工厂方法模式、抽象工厂模式、单例模式、建造者模式、原型模式。 结构型模式，共七种：适配器模式、装饰器模式、代理模式、外观模式、桥接模式、组合模式、享元模式。 行为型模式，共十一种：策略模式、模板方法模式、观察者模式、迭代子模式、责任链模式、命令模式、备忘录模式、状态模式、访问者模式、中介者模式、解释器模式。 单例设计模式目的：保证某一个类在整个应用中">
+<meta property="og:updated_time" content="2014-04-18T14:52:23.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Fandy&#39;s Blog">
-<meta name="twitter:description" content="wo ha ha">
+<meta name="twitter:title" content="Java 设计模式">
+<meta name="twitter:description" content="总体来说设计模式分为三大类：创建型模式，共五种：工厂方法模式、抽象工厂模式、单例模式、建造者模式、原型模式。 结构型模式，共七种：适配器模式、装饰器模式、代理模式、外观模式、桥接模式、组合模式、享元模式。 行为型模式，共十一种：策略模式、模板方法模式、观察者模式、迭代子模式、责任链模式、命令模式、备忘录模式、状态模式、访问者模式、中介者模式、解释器模式。 单例设计模式目的：保证某一个类在整个应用中">
   
   
     <link rel="icon" href="/avatar.png">
@@ -140,138 +142,176 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Java/Java设计模式" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/10/01/aiOS/Sequence函数/" class="archive-article-date">
-  	<time datetime="2016-10-01T07:34:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-10-01</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/10/01/aiOS/Sequence函数/">Sequence 函数</a>
+    <h1 class="article-title" itemprop="name">
+      Java 设计模式
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2014/04/18/Java/Java设计模式/" class="archive-article-date">
+  	<time datetime="2014-04-18T12:14:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-04-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>总体来说设计模式分为三大类：<br>创建型模式，共五种：工厂方法模式、抽象工厂模式、单例模式、建造者模式、原型模式。</p>
+<p>结构型模式，共七种：适配器模式、装饰器模式、代理模式、外观模式、桥接模式、组合模式、享元模式。</p>
+<p>行为型模式，共十一种：策略模式、模板方法模式、观察者模式、迭代子模式、责任链模式、命令模式、备忘录模式、状态模式、访问者模式、中介者模式、解释器模式。</p>
+<h2 id="单例设计模式"><a href="#单例设计模式" class="headerlink" title="单例设计模式"></a>单例设计模式</h2><p>目的：保证某一个类在整个应用中有且只有一个实例(一个类在内存只存在一个对象)，即所有指向该类型实例的引用都指向同一块内存空间。   </p>
+<p>写单例模式的步骤：<br>①　在类内部里显示的把所有的构造方法都使用private修饰。<br>②　在类内部构建一个自身类型的静态字段。<br>③　通过一个公共的静态方法返回本类的字段。</p>
+<p>懒汉式<br>饿汉式</p>
+<h2 id="享元模式"><a href="#享元模式" class="headerlink" title="享元模式"></a>享元模式</h2><p>同一个类的多个对象需要平凡创建时,为了节约内存,使用缓存提前保存好一些常用的对象,要使用的时候先看缓存中是否存在,如果存在就从缓存中获取,而不创建新的对象,从而节约内存</p>
+<p>Java 中 Intger 类型对 -128 和127 之间的数字进行了缓存</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Swift</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">函数</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/iOS/" class="article-tag-list-link color4">iOS</a>
+        			<a href="/categories/Java/" class="article-tag-list-link color5">Java</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://fandyliu.github.io/2014/04/18/Java/Java设计模式/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-      
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/10/01/aiOS/Swift中的一些函数/" class="archive-article-date">
-  	<time datetime="2015-10-01T04:02:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-10-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/01/aiOS/Swift中的一些函数/">Swift 中的一些函数</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Swift</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">函数</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/iOS/" class="article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
+  
+<nav id="article-nav">
+  
+    <a href="/2014/04/18/Java/Java异常机制/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Java 异常机制
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/03/08/Java/Java工作原理/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java 运行原理</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
+
+
+  
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Java/Java设计模式" data-title="Java 设计模式" data-url="https://fandyliu.github.io/2014/04/18/Java/Java设计模式/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"fandylau"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -294,9 +334,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
