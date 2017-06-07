@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>注解 | Fandy&#39;s Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="注解," />
+  
+
+  <meta name="description" content="从 Java 5 开始，java 开始对元数据的支持，也就是注解(Annotation)。 注解:用来描述数据的数据 注解/标签/annotation 都指的是注解 元数据(metadata)：描述数据的数据。 注解被用来为程序元素(类，方法，成员变量等)设置元数据。 所有的 Annotation 都是 java.lang.annotation.Annotation 接口的子接口，所以 Annot">
+<meta name="keywords" content="注解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="注解">
+<meta property="og:url" content="https://fandyliu.github.io/2017/06/04/Java/注解/index.html">
+<meta property="og:site_name" content="Fandy&#39;s Blog">
+<meta property="og:description" content="从 Java 5 开始，java 开始对元数据的支持，也就是注解(Annotation)。 注解:用来描述数据的数据 注解/标签/annotation 都指的是注解 元数据(metadata)：描述数据的数据。 注解被用来为程序元素(类，方法，成员变量等)设置元数据。 所有的 Annotation 都是 java.lang.annotation.Annotation 接口的子接口，所以 Annot">
+<meta property="og:updated_time" content="2017-06-04T12:15:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="注解">
+<meta name="twitter:description" content="从 Java 5 开始，java 开始对元数据的支持，也就是注解(Annotation)。 注解:用来描述数据的数据 注解/标签/annotation 都指的是注解 元数据(metadata)：描述数据的数据。 注解被用来为程序元素(类，方法，成员变量等)设置元数据。 所有的 Annotation 都是 java.lang.annotation.Annotation 接口的子接口，所以 Annot">
+
+  
+
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JDK中自带的注解"><span class="toc-text">JDK中自带的注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模拟-JUnit4-x"><span class="toc-text">模拟 JUnit4.x</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Java/注解" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">注解</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.06.04</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Fandy</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://fandyliu.github.io/2017/06/04/Java/注解/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>从 Java 5 开始，java 开始对元数据的支持，也就是<code>注解(Annotation)</code>。</p>
+<p>注解:用来描述数据的数据</p>
+<p>注解/标签/annotation 都指的是注解</p>
+<p><code>元数据</code>(metadata)：描述数据的数据。</p>
+<p>注解被用来为程序元素(类，方法，成员变量等)设置元数据。</p>
+<p>所有的 Annotation 都是 java.lang.annotation.Annotation 接口的子接口，所以 Annotation 是一种特殊的接口。</p>
+<p>@interface Override {} —&gt; interface Override extends java.lang.annotation.Annotation{}</p>
+<p>所有的枚举类，都是java.lang.Enum类的子类。<br>enum Gender{}——&gt;  class Gender extends java.lang.Enum{}</p>
+<h2 id="JDK中自带的注解"><a href="#JDK中自带的注解" class="headerlink" title="JDK中自带的注解"></a>JDK中自带的注解</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">JDK中内置的注解</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">@Override</td>
+<td style="text-align:center">限定覆写父类方法</td>
+</tr>
+<tr>
+<td style="text-align:center">@Deprecated</td>
+<td style="text-align:center">标记已过时,不推荐使用.</td>
+</tr>
+<tr>
+<td style="text-align:center">@SuppressWarings(value=”xxx”)</td>
+<td style="text-align:center">抑制编译器发出的警告,(不会解决问题)</td>
+</tr>
+<tr>
+<td style="text-align:center">@SafeVarargs</td>
+<td style="text-align:center">抑制堆污染警告(Java7开始出现的)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>堆污染:</strong> 当方法使用了泛型和可变参数的时候,可能出现堆污染。如：</p>
+<pre><code>@SafeVarargs
+public static &lt;T&gt; List&lt;T&gt; asList(T... a) {
+    return new ArrayList&lt;&gt;(a);
+}
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## 元注解    </div><div class="line"><span class="code">    </span></div><div class="line">*<span class="strong">*元注解*</span><span class="strong">*：注解的注解</span></div><div class="line">* @Retention: 描述当前的注解能够保存到的时期</div><div class="line">他的值封装到枚举类 *<span class="strong">*RetentionPolicy*</span>* 中的</div><div class="line"><span class="strong">*自定义的注解应该保存到 RUNTIME 方便用反射读取。*</span></div><div class="line"></div><div class="line">RetentionPolicy | 含义</div><div class="line"><span class="meta">:-:|:-:</span></div><div class="line">CLASS | 编译器将把注释记录在类文件中，但在运行时 VM 不需要保留注释。</div><div class="line">RUNTIME | 编译器将把注释记录在类文件中，在运行时 VM 将保留注释，因此可以反射性地读取。</div><div class="line">SOURCE  | 编译器要丢弃的注释。</div><div class="line"><span class="bullet">* </span>@Target: 当前的注解能够贴到哪些程序元素上</div><div class="line"></div><div class="line">他的值封装到枚举类 *<span class="strong">*ElementType*</span>* 中的</div><div class="line"><span class="code">	</span></div><div class="line">ElementType | 含义</div><div class="line"><span class="meta">:-:|:-:</span></div><div class="line">ElementType.ANNOTATION<span class="emphasis">_TYPE | 只能修饰AnnotationElementType.CONSTRUCTOR | 只能修饰构造方法ElementType.FIELD | 只能修饰字段(属性),包括枚举常量ElementType.LOCAL_</span>VARIABLE | 只能修饰局部变量ElementType.METHOD | 只能修饰方法ElementType.PACKAGE | 只能修饰包(极少使用)ElementType.PARAMETER | 只能修饰参数ElementType.TYPE | 只能修饰类，接口，枚举<span class="bullet">* </span>@Documented:  表示当前的注解可以保存到API文档中<span class="bullet">* </span>@Inherited: 如果父类当中有该注解,则表示子类中也有## 自定义注解和使用</div><div class="line">1. 创建注解:</div><div class="line"></div><div class="line">注意: 数据类型只能是：only primitive type(基本数据类型), String, Class, annotation, enumeration(枚举), arrays(数组)</div></pre></td></tr></table></figure>
+
+@Target({ElementType.CONSTRUCTOR, ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface MyAnnotation {
+   // 如果在使用的时候只需要传递 value 则可以在参数列表中省略（见下）
+    String value(); 
+    String name() default &quot;Fandy&quot;;
+    int age() default 18;
+}
+</code></pre><ol>
+<li>定义需要别贴的程序元素,将注解贴到程序元素上</li>
+</ol>
+<pre><code>// @MyAnnotation(&quot;niu B&quot;) // 只传 value 省略 &apos;key&apos;
+@MyAnnotation(value = &quot;niu B&quot;,name =&quot;fandy&quot;)
+class Person {
+}
+</code></pre><ol>
+<li>第三方的程序赋予注解特殊的功能</li>
+</ol>
+<h2 id="模拟-JUnit4-x"><a href="#模拟-JUnit4-x" class="headerlink" title="模拟 JUnit4.x"></a>模拟 JUnit4.x</h2><p><em>大家都知道 Junit4.x 的执行效果：</em></p>
+<p>首先执行 <code>@Before</code> 标签所帖的方法，再执行测试方法（被 <code>@Test</code> 标签所贴的方法）,最后执行 <code>@After</code> 标签所帖的方法。</p>
+<p>操作步骤:<br>1.定义注解<br>@MyBefore  @MyTest  @MyAfter<br>2.定义程序元素,将注解贴到程序元素上<br>定义一个EmployeeDAOTest,将定义好的注解贴到程序元素上<br>3.使用第三方的程序来赋予注解特殊的功能<br>1).创建三个集合,分别用来存放三种标签对应的方法</p>
+<p>2).取出该方法所有的公共方法<br>Method[] methods = Class实例对象.getMethods();</p>
+<p>3).遍历所有的方法,将不同标签所贴的方法放到对应的集合中</p>
+<p>4).遍历testList集合中的所有的测试方法,<br>在执行测试方法之前,遍历beforeList集合中的所有方法,并执行</p>
+<p>调用该测试方法</p>
+<p>在执行测试方法之后,遍历afterList集合中的所有方法,并执行</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持 fandy</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/06/04/Java/资源文件/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
+    
+    var disqus_url = 'https://fandyliu.github.io/2017/06/04/Java/注解/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>UIWebView 禁止长按链接弹出选择栏 | Fandy&#39;s Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="UIWebView,手势,交互," />
+  
+
+  <meta name="description" content="当 webview 显示 html 页面的时候，其本身会提供一些原生的交互行为：长按获取文本，或者链接。如何禁用这个效果呢。现在总结几种方案:">
+<meta name="keywords" content="UIWebView,手势,交互">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UIWebView 禁止长按链接弹出选择栏">
+<meta property="og:url" content="https://fandyliu.github.io/2015/02/09/iOS/UIWebView禁止长按链接弹出选择栏/index.html">
+<meta property="og:site_name" content="Fandy&#39;s Blog">
+<meta property="og:description" content="当 webview 显示 html 页面的时候，其本身会提供一些原生的交互行为：长按获取文本，或者链接。如何禁用这个效果呢。现在总结几种方案:">
+<meta property="og:updated_time" content="2015-02-09T11:13:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="UIWebView 禁止长按链接弹出选择栏">
+<meta name="twitter:description" content="当 webview 显示 html 页面的时候，其本身会提供一些原生的交互行为：长按获取文本，或者链接。如何禁用这个效果呢。现在总结几种方案:">
+
+  
+
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#方式一"><span class="toc-text">方式一</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#禁用整个页面的用户选择和链接弹出框，可页面样式表中添加如下样式规则"><span class="toc-text">禁用整个页面的用户选择和链接弹出框，可页面样式表中添加如下样式规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#只允许-Form-表单域执行文本的剪切板操作，添加如下规则"><span class="toc-text">只允许 Form 表单域执行文本的剪切板操作，添加如下规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#禁用某个链接的长按弹出框-可在链接添加内联样式规则如下"><span class="toc-text">禁用某个链接的长按弹出框,可在链接添加内联样式规则如下</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方式二"><span class="toc-text">方式二</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方式三"><span class="toc-text">方式三</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方式四"><span class="toc-text">方式四</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-iOS/UIWebView禁止长按链接弹出选择栏" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">UIWebView 禁止长按链接弹出选择栏</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2015.02.09</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Fandy</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://fandyliu.github.io/2015/02/09/iOS/UIWebView禁止长按链接弹出选择栏/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>当 webview 显示 html 页面的时候，其本身会提供一些原生的交互行为：长按获取文本，或者链接。如何禁用这个效果呢。现在总结几种方案:<br><a id="more"></a></p>
+<h2 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h2><p>通过Webkit内核提供的一些特殊的CSS属性 ，我们可以很方便的禁用掉这些默认的行为。首先我们介绍两个特殊的CSS属性。</p>
+<p><a href="https://developer.apple.com/library/content/documentation/AppleApplications/Reference/SafariCSSRef/Articles/StandardCSSProperties.html#//apple_ref/doc/uid/TP30001266-_webkit_touch_callout" target="_blank" rel="external">-webkit-touch-callout</a></p>
+<blockquote>
+<p>-webkit-touch-callout(IOS2.0及以后可用)<br>Disables the default callout shown when you touch and hold a touch target.</p>
+<p>Syntax<br>-webkit-touch-callout: behavior;</p>
+</blockquote>
+<p>长按诸如链接的目标对象时，是否允许呼出默认的popOver，当前选择值包括:</p>
+<ul>
+<li>none:不呼出弹窗框</li>
+<li>inherit:可以呼出弹窗框</li>
+</ul>
+<p>在IOS中，当你touch和hold一个触控对象时，例如链接，Safari会显示一个包含链接信息的弹出框。该属性允许你来禁用这个弹出框。</p>
+<p><a href="https://developer.apple.com/library/content/documentation/AppleApplications/Reference/SafariCSSRef/Articles/StandardCSSProperties.html#//apple_ref/doc/uid/TP30001266-_webkit_user_select" target="_blank" rel="external">-webkit-user-select</a></p>
+<blockquote>
+<p>-webkit-user-select(IOS3.0及以后可用)<br>Determines whether a user can select the content of an element.</p>
+<p>Syntax<br>-webkit-user-select: policy;</p>
+</blockquote>
+<p>是否允许用户选择元素的内容，选择值包括：</p>
+<ul>
+<li>auto:用户可以选择元素内的内容</li>
+<li>none:用户不能选择任何内容</li>
+<li>text:用户只能选择元素内的文本</li>
+</ul>
+<h3 id="禁用整个页面的用户选择和链接弹出框，可页面样式表中添加如下样式规则"><a href="#禁用整个页面的用户选择和链接弹出框，可页面样式表中添加如下样式规则" class="headerlink" title="禁用整个页面的用户选择和链接弹出框，可页面样式表中添加如下样式规则"></a>禁用整个页面的用户选择和链接弹出框，可页面样式表中添加如下样式规则</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">body.disable-default-action</div><div class="line">&#123;</div><div class="line">    -webkit-touch-callout:none ;</div><div class="line">    -webkit-user-select:none ;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>同时在body标签中加入该类型,如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;body class = &quot;disable-default-action&quot;&gt;</div><div class="line">    page content….</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
+<h3 id="只允许-Form-表单域执行文本的剪切板操作，添加如下规则"><a href="#只允许-Form-表单域执行文本的剪切板操作，添加如下规则" class="headerlink" title="只允许 Form 表单域执行文本的剪切板操作，添加如下规则"></a>只允许 Form 表单域执行文本的剪切板操作，添加如下规则</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">  *:not(input,textarea) &#123;</div><div class="line">    -webkit-touch-callout: none;</div><div class="line">    -webkit-user-select: none; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="禁用某个链接的长按弹出框-可在链接添加内联样式规则如下"><a href="#禁用某个链接的长按弹出框-可在链接添加内联样式规则如下" class="headerlink" title="禁用某个链接的长按弹出框,可在链接添加内联样式规则如下"></a>禁用某个链接的长按弹出框,可在链接添加内联样式规则如下</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;a href=&quot;http://www.baidu.com&quot; style = &quot;-webkit-touch-callout:none&quot;&gt;</div></pre></td></tr></table></figure>
+<h2 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h2><p>以编程方式动态的向加载页面添加样式来达到同样的效果(iOS 8 以前可以用 以后貌似不可以)</p>
+<p>实现UIWebviewDelegate协议，在webViewDidFinishLoad:方法中添加以下代码 </p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)webViewDidFinishLoad:(<span class="built_in">UIWebView</span> *)webView &#123;</div><div class="line">    <span class="comment">// 禁用用户选择</span></div><div class="line">    [webView stringByEvaluatingJavaScriptFromString:<span class="string">@"document.documentElement.style.webkitUserSelect='none';"</span>];</div><div class="line">    </div><div class="line">    <span class="comment">// 禁用长按弹出框</span></div><div class="line">    [webView stringByEvaluatingJavaScriptFromString:<span class="string">@"document.documentElement.style.webkitTouchCallout='none';"</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>html５ 貌似可以这样子加(没有测试过)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">document</span>.body.style.webkitTouchCallout=<span class="string">'none'</span></div></pre></td></tr></table></figure>
+<h2 id="方式三"><a href="#方式三" class="headerlink" title="方式三"></a>方式三</h2><p>更安全的方式是，写html的时候加上以下代码，这样不管谁调用你的网页，长按链接都不会呼出弹窗框<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">        window.onload=function()&#123;</div><div class="line">            document.documentElement.style.webkitTouchCallout=&apos;none&apos;;</div><div class="line">        &#125;;</div><div class="line">    &lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>这样子不管谁调用都没有这个手势了</p>
+<h2 id="方式四"><a href="#方式四" class="headerlink" title="方式四"></a>方式四</h2><p>用个chang<br>在viewdidload或适当的地方创建一个自定义的长按手势</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UILongPressGestureRecognizer</span> *longPress = [[<span class="built_in">UILongPressGestureRecognizer</span> alloc] initWithTarget:<span class="keyword">self</span> action:<span class="literal">nil</span>];</div><div class="line"><span class="comment">// 记得在.h文件里加上委托</span></div><div class="line">longPress.delegate = <span class="keyword">self</span>;</div><div class="line"><span class="comment">// 这里为什么要设置0.4，因为只要大于0.5就无效，我像大概是因为默认的跳出放大镜的手势的长按时间是0.5秒，</span></div><div class="line"><span class="comment">// 如果我们自定义的手势大于或小于0.5秒的话就来不及替换他的默认手势了，这是只是我的猜测。但是最好大于0.2秒，因为有的pdf有一些书签跳转功能，这个值太小的话可能会使这些功能失效。</span></div><div class="line">longPress.minimumPressDuration = <span class="number">0.4</span>;</div><div class="line">[<span class="keyword">self</span>.webView addGestureRecognizer:longPress];</div></pre></td></tr></table></figure>
+<p>接下来就是实现一个委托了</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#pragma mark - GestureRecognizerDelegate</span></div><div class="line">- (<span class="built_in">BOOL</span>)gestureRecognizer:(<span class="built_in">UIGestureRecognizer</span> *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(<span class="built_in">UIGestureRecognizer</span> *)otherGestureRecognizer</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> <span class="literal">NO</span>; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><a href="http://www.cocoachina.com/bbs/read.php?tid=102913" target="_blank" rel="external">其他参考连接</a></p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持 fandy</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2014/06/04/Java/单例设计模式/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2015/06/04/Java/Java与Eclipse/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
+    
+    var disqus_url = 'https://fandyliu.github.io/2015/02/09/iOS/UIWebView禁止长按链接弹出选择栏/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

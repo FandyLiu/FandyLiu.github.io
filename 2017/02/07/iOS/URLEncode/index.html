@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>URL Encode | Fandy&#39;s Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="URL,Encode," />
+  
+
+  <meta name="description" content="URL 编码这个名词相信我们并不陌生，简单来说就是将一些字符转化为 “% + ASCII（16进制表示）” 的形式。 在开发中经常会遇到一些 URL 里面，有一些特殊的字符比如 ‘&amp;amp;’、‘?’ 等等。由于这些字符在 URL 语法中有特殊含义，因此要对其进行 Encode。比如：在 1 个键值对中含有 &amp;amp; ，name=fan&amp;amp;dy=aa 注意这里是 1 个键值对，只是值中有">
+<meta name="keywords" content="URL,Encode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="URL Encode">
+<meta property="og:url" content="https://fandyliu.github.io/2017/02/07/iOS/URLEncode/index.html">
+<meta property="og:site_name" content="Fandy&#39;s Blog">
+<meta property="og:description" content="URL 编码这个名词相信我们并不陌生，简单来说就是将一些字符转化为 “% + ASCII（16进制表示）” 的形式。 在开发中经常会遇到一些 URL 里面，有一些特殊的字符比如 ‘&amp;amp;’、‘?’ 等等。由于这些字符在 URL 语法中有特殊含义，因此要对其进行 Encode。比如：在 1 个键值对中含有 &amp;amp; ，name=fan&amp;amp;dy=aa 注意这里是 1 个键值对，只是值中有">
+<meta property="og:image" content="http://img.okbao.com/uploads/150225/247-15022504315KN.jpg">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1496601674738&di=834a14e6470507ca7d96bbb8eb4c0d67&imgtype=0&src=http%3A%2F%2Fi.dimg.cc%2F8c%2F8b%2F2b%2F97%2F24%2Ff6%2F0c%2F2a%2F4b%2F15%2Fe5%2Fdc%2F0a%2Fde%2F3a%2Fb9.jpg">
+<meta property="og:updated_time" content="2017-02-11T07:41:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="URL Encode">
+<meta name="twitter:description" content="URL 编码这个名词相信我们并不陌生，简单来说就是将一些字符转化为 “% + ASCII（16进制表示）” 的形式。 在开发中经常会遇到一些 URL 里面，有一些特殊的字符比如 ‘&amp;amp;’、‘?’ 等等。由于这些字符在 URL 语法中有特殊含义，因此要对其进行 Encode。比如：在 1 个键值对中含有 &amp;amp; ，name=fan&amp;amp;dy=aa 注意这里是 1 个键值对，只是值中有">
+<meta name="twitter:image" content="http://img.okbao.com/uploads/150225/247-15022504315KN.jpg">
+
+  
+
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#在-Objective-C-中"><span class="toc-text">在 Objective-C 中</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#iOS-9-0-前"><span class="toc-text">iOS 9.0 前</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#iOS-9-0-后"><span class="toc-text">iOS 9.0 后</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在-Swift-中"><span class="toc-text">在 Swift 中</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Print-CharacterSet-的字符"><span class="toc-text">Print CharacterSet 的字符</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-iOS/URLEncode" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">URL Encode</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.02.07</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Fandy</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://fandyliu.github.io/2017/02/07/iOS/URLEncode/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p><img src="http://img.okbao.com/uploads/150225/247-15022504315KN.jpg"></p>
+<p><strong>URL 编码</strong>这个名词相信我们并不陌生，简单来说就是将一些<code>字符</code>转化为 <code>“% + ASCII（16进制表示）”</code> 的形式。</p>
+<p>在开发中经常会遇到一些 URL 里面，有一些<code>特殊的字符</code>比如 ‘&amp;’、‘?’ 等等。由于这些字符在 URL 语法中有特殊含义，因此要对其进行 <code>Encode</code>。比如：在 1 个键值对中含有 &amp; ，name=<em><code>fan&amp;dy=aa</code></em> 注意这里是 1 个键值对，只是值中有 &amp; 和 = 所以我们要对 value 进行 URL 编码，转换为 name=<em>fan%26dy%3Daa</em>。</p>
+<p>当然还有一种常见的情况就是在我们开发中对参数进行加密传输的时候，难免会出现一些特殊字符。比如 Base64 加密结果中的 ‘/’、‘=’ 等等。这个时候就要对其进行 URL 编码了。</p>
+<a id="more"></a>
+<p><strong><em>下面对 encode URL 进行总结：</em></strong></p>
+<h2 id="在-Objective-C-中"><a href="#在-Objective-C-中" class="headerlink" title="在 Objective-C 中"></a>在 Objective-C 中</h2><h3 id="iOS-9-0-前"><a href="#iOS-9-0-前" class="headerlink" title="iOS 9.0 前"></a>iOS 9.0 前</h3><ul>
+<li><strong><em>CFURLCreateStringByAddingPercentEscapes</em></strong></li>
+</ul>
+<p>我们经常对 URL 采用 <a href="https://developer.apple.com/reference/corefoundation/1542665-cfurlcreatestringbyaddingpercent?language=objc" target="_blank" rel="external">CFURLCreateStringByAddingPercentEscapes</a> 函数进行 <code>encode</code> 处理。</p>
+<p>这里是在 AFN 中对其的静态函数的封装：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> * AFPercentEscapedQueryStringPairMemberFromStringWithEncoding(<span class="built_in">NSString</span> *string, <span class="built_in">NSStringEncoding</span> encoding) &#123;</div><div class="line">    <span class="keyword">static</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> kAFCharactersToBeEscaped = <span class="string">@":/?&amp;=;+!@#$()~',*"</span>;</div><div class="line">    <span class="keyword">static</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> kAFCharactersToLeaveUnescaped = <span class="string">@"[]."</span>;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> (<span class="built_in">NSString</span> *)<span class="built_in">CFBridgingRelease</span>(<span class="built_in">CFURLCreateStringByAddingPercentEscapes</span>(kCFAllocatorDefault,</div><div class="line">                                                                                 (__bridge <span class="built_in">CFStringRef</span>)string,</div><div class="line">                                                                                 (__bridge <span class="built_in">CFStringRef</span>)kAFCharactersToLeaveUnescaped,</div><div class="line">                                                                                 (__bridge <span class="built_in">CFStringRef</span>)kAFCharactersToBeEscaped,</div><div class="line">                                                                                 <span class="built_in">CFStringConvertNSStringEncodingToEncoding</span>(encoding)));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><strong><em>CFURLCreateStringByReplacingPercentEscapes</em></strong></li>
+</ul>
+<p>我们也可以用 <a href="https://developer.apple.com/reference/corefoundation/1542938-cfurlcreatestringbyreplacingperc" target="_blank" rel="external">CFURLCreateStringByReplacingPercentEscapes</a> 或  <a href="https://developer.apple.com/reference/corefoundation/1541974-cfurlcreatestringbyreplacingperc?language=objc" target="_blank" rel="external">CFURLCreateStringByReplacingPercentEscapesUsingEncoding</a> 函数对 URL 进行 <code>decode</code> 处理。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">CFStringRef</span> originalURLString = <span class="built_in">CFSTR</span>(<span class="string">"fan%25dy=aa"</span>);</div><div class="line"><span class="built_in">NSString</span> *preprocessedString = <span class="built_in">CFBridgingRelease</span>(<span class="built_in">CFURLCreateStringByReplacingPercentEscapesUsingEncoding</span>(kCFAllocatorDefault,</div><div class="line">                                                                                                         originalURLString,</div><div class="line">                                                                                                         <span class="built_in">CFSTR</span>(<span class="string">""</span>),</div><div class="line">                                                                                                         kCFStringEncodingUTF8));</div></pre></td></tr></table></figure>
+<p>这个是对上面函数第三个参数的描述：</p>
+<blockquote>
+<p> Pass NULL to specify that no percent escapes be replaced, or the empty string (CFSTR(“”)) to specify that all be replaced.</p>
+</blockquote>
+<p>这两个方法通常会在什么情况下<code>使用</code>呢？要对一个<code>一半已经进行了 URL encode</code> 而有部分却没有。因此直接进行 encode 的话会将 ‘%’ 转换为 ‘%25’ 导致错误，所以要<code>先进行 decode 再进行 encode</code>。如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">CFStringRef</span> originalURLString = <span class="built_in">CFSTR</span>(<span class="string">"fan%25dy=aa"</span>);</div><div class="line"><span class="comment">// 先 decode 预处理</span></div><div class="line"><span class="built_in">NSString</span> *preprocessedString = <span class="built_in">CFBridgingRelease</span>(<span class="built_in">CFURLCreateStringByReplacingPercentEscapesUsingEncoding</span>(kCFAllocatorDefault,</div><div class="line">                                                                                                         originalURLString,</div><div class="line">                                                                                                         <span class="built_in">CFSTR</span>(<span class="string">""</span>),</div><div class="line">                                                                                                         kCFStringEncodingUTF8));</div><div class="line"></div><div class="line"><span class="comment">// 再 encode 处理</span></div><div class="line"><span class="built_in">NSString</span> *preprocessedUrlString = <span class="built_in">CFBridgingRelease</span>(<span class="built_in">CFURLCreateStringByAddingPercentEscapes</span>(kCFAllocatorDefault,</div><div class="line">                                                                                            (__bridge <span class="built_in">CFStringRef</span>)preprocessedString,</div><div class="line">                                                                                            <span class="literal">NULL</span>,</div><div class="line">                                                                                            <span class="built_in">CFSTR</span>(<span class="string">"?!@#$^&amp;%*+,:;='\"`&lt;&gt;()[]&#123;&#125;/\\| "</span>),</div><div class="line">                                                                                            kCFStringEncodingUTF8));</div><div class="line"><span class="comment">// 直接encode</span></div><div class="line"><span class="built_in">NSString</span> *urlString = <span class="built_in">CFBridgingRelease</span>(<span class="built_in">CFURLCreateStringByAddingPercentEscapes</span>(kCFAllocatorDefault,</div><div class="line">                                                                                originalURLString,</div><div class="line">                                                                                <span class="literal">NULL</span>,</div><div class="line">                                                                                <span class="built_in">CFSTR</span>(<span class="string">"?!@#$^&amp;%*+,:;='\"`&lt;&gt;()[]&#123;&#125;/\\| "</span>),</div><div class="line">                                                                                kCFStringEncodingUTF8));</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"preprocessedString = %@"</span>, preprocessedString); <span class="comment">//  预处理 decode 结果=&gt; fan%dy=aa</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"preprocessedUrlString = %@"</span>, preprocessedUrlString); <span class="comment">// 先 decode 再 encode 结果 =&gt; fan%25dy%3Daa</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"urlString = %@"</span>, urlString); <span class="comment">// 直接 encode 结果 =&gt; fan%2525dy%3Daa</span></div></pre></td></tr></table></figure>
+<h3 id="iOS-9-0-后"><a href="#iOS-9-0-后" class="headerlink" title="iOS 9.0 后"></a>iOS 9.0 后</h3><p><strong><code>上面的方法大多数在 iOS 9 的时候被废弃了，OC 提供了一些新的方法来替代。</code></strong></p>
+<ul>
+<li><strong><em>stringByAddingPercentEncodingWithAllowedCharacters</em></strong></li>
+</ul>
+<p><em>使用系统提供的 CharacterSet 来 encode URL</em></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSString</span> *originalString = <span class="string">@"https://fandyliu.github.io/2016/12/02/Xcode提交构建版本时“此构建版本无效”问题/"</span>;</div><div class="line"><span class="built_in">NSCharacterSet</span> *customAllowedSet = [<span class="built_in">NSCharacterSet</span> URLQueryAllowedCharacterSet];</div><div class="line"><span class="built_in">NSString</span> *encodedUrl = [originalString stringByAddingPercentEncodingWithAllowedCharacters:customAllowedSet];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"encodedUrl = %@"</span>, encodedUrl);</div></pre></td></tr></table></figure>
+<p><em>使用自定义的 CharacterSet 来 encode URL</em></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSString</span> *originalString = <span class="string">@"https://fandyliu.github.io/2016/12/02/Xcode提交构建版本时“此构建版本无效”问题/"</span>;</div><div class="line"><span class="built_in">NSCharacterSet</span> *customAllowedSet = [[<span class="built_in">NSCharacterSet</span> characterSetWithCharactersInString:<span class="string">@" \"#%&lt;&gt;[\\]^`&#123;|&#125;"</span>] invertedSet];</div><div class="line"><span class="built_in">NSString</span> *encodedUrl = [originalString stringByAddingPercentEncodingWithAllowedCharacters:customAllowedSet];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"encodedUrl = %@"</span>, encodedUrl);</div></pre></td></tr></table></figure>
+<h2 id="在-Swift-中"><a href="#在-Swift-中" class="headerlink" title="在 Swift 中"></a>在 Swift 中</h2><p><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1496601674738&di=834a14e6470507ca7d96bbb8eb4c0d67&imgtype=0&src=http%3A%2F%2Fi.dimg.cc%2F8c%2F8b%2F2b%2F97%2F24%2Ff6%2F0c%2F2a%2F4b%2F15%2Fe5%2Fdc%2F0a%2Fde%2F3a%2Fb9.jpg" width="100%"></p>
+<p>当然这么<code>老掉牙</code>的东西现在总结，主要还是整理一下她在 <code>Swift</code> 中的使用：</p>
+<ul>
+<li><strong><em>使用系统提供的 CharacterSet 来 encode URL</em></strong></li>
+</ul>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> originalString = <span class="string">"https://fandyliu.github.io/2016/12/02/Xcode提交构建版本时“此构建版本无效”问题/"</span></div><div class="line"><span class="keyword">let</span> escapedString = originalString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)</div><div class="line"><span class="built_in">print</span>(escapedString ?? <span class="string">"error"</span>)</div></pre></td></tr></table></figure>
+<ul>
+<li><strong><em>使用自定义的 CharacterSet 来 encode URL</em></strong></li>
+</ul>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> originalString = <span class="string">"https://fandyliu.github.io/2016/12/02/Xcode提交构建版本时“此构建版本无效”问题/"</span></div><div class="line"><span class="keyword">let</span> customAllowedSet = <span class="type">CharacterSet</span>(charactersIn: <span class="string">" \"#%&lt;&gt;[\\]^`&#123;|&#125;"</span>).inverted</div><div class="line"><span class="keyword">let</span> escapedString = originalString.addingPercentEncoding(withAllowedCharacters: customAllowedSet)</div><div class="line"><span class="built_in">print</span>(escapedString ?? <span class="string">"error"</span>)</div></pre></td></tr></table></figure>
+<ul>
+<li><strong><em>系统中提供 CharacterSet 的诸多值</em></strong></li>
+</ul>
+<p><strong>注意：</strong>最外层 ‘’ 是为了区分内容，不是 Characters，且在 ‘’ 中注意有个<code>空格字符</code>，</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">      CharacterSet                    Inverted Characters</div><div class="line">CharacterSet<span class="selector-class">.urlQueryAllowed</span>          <span class="string">' "#%&lt;&gt;[\]^`&#123;|&#125;'</span> </div><div class="line">CharacterSet<span class="selector-class">.urlHostAllowed</span>           <span class="string">' "#%/&lt;&gt;?@\^`&#123;|&#125;'</span></div><div class="line">CharacterSet<span class="selector-class">.urlPathAllowed</span>           <span class="string">' "#%;&lt;&gt;?[\]^`&#123;|&#125;'</span></div></pre></td></tr></table></figure>
+<h3 id="Print-CharacterSet-的字符"><a href="#Print-CharacterSet-的字符" class="headerlink" title="Print CharacterSet 的字符"></a>Print CharacterSet 的字符</h3><p>我们可以通过这个方法来<code>打印</code>系统中 CharacterSet 的 <code>characters</code>。（注意有些是带<code>空格</code>的）</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">printCharacters</span><span class="params">(<span class="keyword">in</span> <span class="keyword">set</span>: CharacterSet)</span></span> &#123;</div><div class="line">    <span class="keyword">var</span> characters = <span class="string">""</span></div><div class="line">    <span class="keyword">let</span> iSet = <span class="keyword">set</span>.inverted</div><div class="line">    <span class="keyword">for</span> i: <span class="type">UInt32</span> <span class="keyword">in</span> <span class="number">32</span>..&lt;<span class="number">127</span> &#123;</div><div class="line">        <span class="keyword">let</span> <span class="built_in">c</span> = <span class="type">UnicodeScalar</span>(i)!</div><div class="line">        <span class="keyword">if</span> iSet.<span class="built_in">contains</span>(<span class="built_in">c</span>) &#123;</div><div class="line">            characters += <span class="type">String</span>(<span class="built_in">c</span>)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"'<span class="subst">\(characters)</span>'"</span>) <span class="comment">// 打印的时候加上了''</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持 fandy</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2016/10/01/iOS/Sequence函数/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2017/06/04/Java/资源文件/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
+    
+    var disqus_url = 'https://fandyliu.github.io/2017/02/07/iOS/URLEncode/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

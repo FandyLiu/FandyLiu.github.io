@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>Sequence 函数 | Fandy&#39;s Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Swift,Sequence," />
+  
+
+  <meta name="description" content="有些在 swift 1.0 为函数到 swift 2.0 变为一个对象的方法，Swift 3.0 并没有什么大变化,现在对 Sequence 函数这些方法做个总结.">
+<meta name="keywords" content="Swift,Sequence">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sequence 函数">
+<meta property="og:url" content="https://fandyliu.github.io/2016/10/01/iOS/Sequence函数/index.html">
+<meta property="og:site_name" content="Fandy&#39;s Blog">
+<meta property="og:description" content="有些在 swift 1.0 为函数到 swift 2.0 变为一个对象的方法，Swift 3.0 并没有什么大变化,现在对 Sequence 函数这些方法做个总结.">
+<meta property="og:updated_time" content="2016-10-01T08:46:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sequence 函数">
+<meta name="twitter:description" content="有些在 swift 1.0 为函数到 swift 2.0 变为一个对象的方法，Swift 3.0 并没有什么大变化,现在对 Sequence 函数这些方法做个总结.">
+
+  
+
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Sequence-contains"><span class="toc-text">Sequence.contains()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sequence-enumerated"><span class="toc-text">Sequence.enumerated()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串截取"><span class="toc-text">字符串截取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sequence-sort"><span class="toc-text">Sequence.sort()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sequence-dropFirst-Sequence-dropLast"><span class="toc-text">Sequence.dropFirst() Sequence.dropLast()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sequence-filter"><span class="toc-text">Sequence.filter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sequence-index-Sequence-indices"><span class="toc-text">Sequence.index() Sequence.indices</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sequence-joined"><span class="toc-text">Sequence.joined()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sequence-map"><span class="toc-text">Sequence.map</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sequence-reduce"><span class="toc-text">Sequence.reduce</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sequence-reversed"><span class="toc-text">Sequence.reversed</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sequence-starts-with"><span class="toc-text">Sequence.starts(with:)</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-iOS/Sequence函数" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Sequence 函数</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.10.01</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Fandy</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://fandyliu.github.io/2016/10/01/iOS/Sequence函数/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>有些在 swift 1.0 为函数到 swift 2.0 变为一个对象的方法，Swift 3.0 并没有什么大变化,现在对 Sequence 函数这些方法做个总结.</p>
+<a id="more"></a>
+<h2 id="Sequence-contains"><a href="#Sequence-contains" class="headerlink" title="Sequence.contains()"></a>Sequence.contains()</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1. 简单的实用</span></div><div class="line"><span class="keyword">var</span> b = [<span class="string">"Swift"</span>, <span class="string">"Objective-C"</span>]</div><div class="line"><span class="comment">// ture</span></div><div class="line">b.<span class="built_in">contains</span>(<span class="string">"Swift"</span>)</div><div class="line"></div><div class="line"><span class="comment">// 2. Swift 闭包和语法的灵活性</span></div><div class="line"><span class="keyword">let</span> numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>];</div><div class="line"></div><div class="line"><span class="comment">// 如果数组中，有 3 的倍数，就返回 true</span></div><div class="line">numbers.<span class="built_in">contains</span> &#123; (element) -&gt; <span class="type">Bool</span> <span class="keyword">in</span></div><div class="line">    <span class="keyword">if</span> element % <span class="number">3</span> == <span class="number">0</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">    &#125;<span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>实例</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 比如我们在维护一个图书列表，我们想知道这个列表中有没有图书有更新章节，可以用一个简单的模型来表示图书：</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Book</span> </span>&#123;</div><div class="line">    <span class="keyword">var</span> title: <span class="type">String</span>?</div><div class="line">    <span class="keyword">var</span> hasUpdate: <span class="type">Bool</span> = <span class="literal">false</span></div><div class="line">    </div><div class="line">    <span class="keyword">init</span>(title:<span class="type">String</span>, hasUpdate:<span class="type">Bool</span>) &#123;</div><div class="line">        <span class="keyword">self</span>.title = title</div><div class="line">        <span class="keyword">self</span>.hasUpdate = hasUpdate</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 然后，我们就可以用 predicate 的方式来直接进行判断了，不在需要 for 循环了：</span></div><div class="line"><span class="keyword">var</span> bookList:[<span class="type">Book</span>] = [<span class="type">Book</span>]()</div><div class="line">bookList.append(<span class="type">Book</span>(title:<span class="string">"Objective-C"</span>, hasUpdate:<span class="literal">false</span>))</div><div class="line">bookList.append(<span class="type">Book</span>(title:<span class="string">"Cocoa"</span>, hasUpdate:<span class="literal">false</span>))</div><div class="line">bookList.append(<span class="type">Book</span>(title:<span class="string">"Swift"</span>, hasUpdate:<span class="literal">true</span>))</div><div class="line"></div><div class="line">bookList.<span class="built_in">contains</span> &#123; (book: <span class="type">Book</span>) -&gt; <span class="type">Bool</span> <span class="keyword">in</span></div><div class="line">    <span class="keyword">return</span> book.hasUpdate</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Sequence-enumerated"><a href="#Sequence-enumerated" class="headerlink" title="Sequence.enumerated()"></a>Sequence.enumerated()</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> abc = [<span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>]</div><div class="line"><span class="keyword">for</span> (n, <span class="built_in">c</span>) <span class="keyword">in</span> abc.enumerated() &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"<span class="subst">\(n)</span>: '<span class="subst">\(<span class="built_in">c</span>)</span>'"</span>)</div><div class="line">&#125;</div><div class="line"><span class="comment">// 0: '5'</span></div><div class="line"><span class="comment">// 1: '7'</span></div><div class="line"><span class="comment">// 2: '9'</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> (n, <span class="built_in">c</span>) <span class="keyword">in</span> <span class="string">"Swift"</span>.characters.enumerated() &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"<span class="subst">\(n)</span>: '<span class="subst">\(<span class="built_in">c</span>)</span>'"</span>)</div><div class="line">&#125;</div><div class="line"><span class="comment">// Prints "0: 'S'"</span></div><div class="line"><span class="comment">// Prints "1: 'w'"</span></div><div class="line"><span class="comment">// Prints "2: 'i'"</span></div><div class="line"><span class="comment">// Prints "3: 'f'"</span></div><div class="line"><span class="comment">// Prints "4: 't'"</span></div></pre></td></tr></table></figure>
+<h2 id="字符串截取"><a href="#字符串截取" class="headerlink" title="字符串截取"></a>字符串截取</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> name = <span class="string">"Marie Curie"</span></div><div class="line"><span class="keyword">if</span> <span class="keyword">let</span> firstSpace = name.characters.index(of: <span class="string">" "</span>) &#123;</div><div class="line">    <span class="keyword">let</span> firstName = <span class="type">String</span>(name.characters.<span class="keyword">prefix</span>(upTo: firstSpace))</div><div class="line">    <span class="built_in">print</span>(firstName)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Sequence-sort"><a href="#Sequence-sort" class="headerlink" title="Sequence.sort()"></a>Sequence.sort()</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> students: <span class="type">Set</span> = [<span class="string">"Kofi"</span>, <span class="string">"Abena"</span>, <span class="string">"Peter"</span>, <span class="string">"Kweku"</span>, <span class="string">"Akosua"</span>]</div><div class="line"><span class="keyword">let</span> sortedStudents = students.sorted()</div><div class="line"><span class="built_in">print</span>(sortedStudents)</div><div class="line"><span class="comment">// Prints "["Abena", "Akosua", "Kofi", "Kweku", "Peter"]"</span></div><div class="line"></div><div class="line"><span class="keyword">let</span> descendingStudents = students.sorted(by: &gt;)</div><div class="line"><span class="built_in">print</span>(descendingStudents)</div><div class="line"><span class="comment">// Prints "["Peter", "Kweku", "Kofi", "Akosua", "Abena"]"</span></div></pre></td></tr></table></figure>
+<p>例子</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">enum</span> <span class="title">HTTPResponse</span> </span>&#123;</div><div class="line">    <span class="keyword">case</span> ok</div><div class="line">    <span class="keyword">case</span> error(<span class="type">Int</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> responses: [<span class="type">HTTPResponse</span>] = [.error(<span class="number">500</span>), .ok, .ok, .error(<span class="number">404</span>), .error(<span class="number">403</span>)]</div><div class="line"><span class="keyword">let</span> sortedResponses = responses.sorted &#123;</div><div class="line">    <span class="keyword">switch</span> ($<span class="number">0</span>, $<span class="number">1</span>) &#123;</div><div class="line">    <span class="comment">// Order errors by code</span></div><div class="line">    <span class="keyword">case</span> <span class="keyword">let</span> (.error(aCode), .error(bCode)):</div><div class="line">        <span class="keyword">return</span> aCode &lt; bCode</div><div class="line"></div><div class="line">    <span class="comment">// All successes are equivalent, so none is before any other</span></div><div class="line">    <span class="keyword">case</span> (.ok, .ok): <span class="keyword">return</span> <span class="literal">false</span></div><div class="line"></div><div class="line">    <span class="comment">// Order errors before successes</span></div><div class="line">    <span class="keyword">case</span> (.error, .ok): <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">    <span class="keyword">case</span> (.ok, .error): <span class="keyword">return</span> <span class="literal">false</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="built_in">print</span>(sortedResponses)</div><div class="line"><span class="comment">// Prints "[.error(403), .error(404), .error(500), .ok, .ok]"</span></div></pre></td></tr></table></figure>
+<h2 id="Sequence-dropFirst-Sequence-dropLast"><a href="#Sequence-dropFirst-Sequence-dropLast" class="headerlink" title="Sequence.dropFirst() Sequence.dropLast()"></a>Sequence.dropFirst() Sequence.dropLast()</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1. Sequence.dropFirst()</span></div><div class="line"><span class="keyword">var</span> languages = [<span class="string">"Swift"</span>, <span class="string">"Objective-C"</span>]</div><div class="line"><span class="keyword">var</span> oldLanguages = languages.<span class="built_in">dropFirst</span>()</div><div class="line"></div><div class="line"><span class="comment">// 2. Sequence.dropLast()</span></div><div class="line"><span class="keyword">let</span> numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</div><div class="line"><span class="built_in">print</span>(numbers.<span class="built_in">dropLast</span>(<span class="number">2</span>))</div><div class="line"><span class="comment">// Prints "[1, 2, 3]"</span></div><div class="line"><span class="built_in">print</span>(numbers.<span class="built_in">dropLast</span>(<span class="number">10</span>))</div><div class="line"><span class="comment">// Prints "[]"</span></div></pre></td></tr></table></figure>
+<h2 id="Sequence-filter"><a href="#Sequence-filter" class="headerlink" title="Sequence.filter"></a>Sequence.filter</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1</span></div><div class="line"><span class="keyword">let</span> cast = [<span class="string">"Vivien"</span>, <span class="string">"Marlon"</span>, <span class="string">"Kim"</span>, <span class="string">"Karl"</span>]</div><div class="line"><span class="keyword">let</span> shortNames = cast.<span class="built_in">filter</span> &#123; $<span class="number">0</span>.characters.<span class="built_in">count</span> &lt; <span class="number">5</span> &#125;</div><div class="line"><span class="built_in">print</span>(shortNames)</div><div class="line"><span class="comment">// Prints "["Kim", "Karl"]"</span></div><div class="line"></div><div class="line"><span class="comment">// 2</span></div><div class="line"><span class="keyword">var</span> arr = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>]</div><div class="line"><span class="keyword">let</span> abc = arr.<span class="built_in">filter</span> &#123; $<span class="number">0</span> % <span class="number">2</span> == <span class="number">0</span> &#125;</div><div class="line"><span class="built_in">print</span>(abc)</div><div class="line"><span class="comment">// Prints [0, 2, 4, 6, 8, 10]</span></div></pre></td></tr></table></figure>
+<h2 id="Sequence-index-Sequence-indices"><a href="#Sequence-index-Sequence-indices" class="headerlink" title="Sequence.index() Sequence.indices"></a>Sequence.index() Sequence.indices</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> students = [<span class="string">"Kofi"</span>, <span class="string">"Abena"</span>, <span class="string">"Peter"</span>, <span class="string">"Kweku"</span>, <span class="string">"Akosua"</span>]</div><div class="line"><span class="keyword">if</span> <span class="keyword">let</span> i = students.index(<span class="keyword">where</span>: &#123; $<span class="number">0</span>.hasPrefix(<span class="string">"A"</span>) &#125;) &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"<span class="subst">\(students[i])</span> starts with 'A'!"</span>)</div><div class="line">&#125;</div><div class="line"><span class="comment">// Prints "Abena starts with 'A'!"</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> <span class="built_in">c</span> = <span class="type">Array</span>([<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>])</div><div class="line"><span class="keyword">var</span> i = <span class="built_in">c</span>.startIndex</div><div class="line"><span class="keyword">while</span> i != <span class="built_in">c</span>.endIndex &#123;</div><div class="line">    <span class="built_in">c</span>[i] /= <span class="number">5</span></div><div class="line">    i = <span class="built_in">c</span>.index(after: i)</div><div class="line">&#125;</div><div class="line"><span class="built_in">print</span>(<span class="built_in">c</span>)</div><div class="line"><span class="comment">// Prints [2, 4, 6, 8, 10]</span></div><div class="line"><span class="comment">// 肯定用 map 更简单 这里只是掩饰 index</span></div></pre></td></tr></table></figure>
+<h2 id="Sequence-joined"><a href="#Sequence-joined" class="headerlink" title="Sequence.joined()"></a>Sequence.joined()</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> cast = [<span class="string">"Vivien"</span>, <span class="string">"Marlon"</span>, <span class="string">"Kim"</span>, <span class="string">"Karl"</span>]</div><div class="line"><span class="keyword">let</span> list = cast.joined(separator: <span class="string">", "</span>)</div><div class="line"><span class="built_in">print</span>(list)</div><div class="line"><span class="comment">// Prints "Vivien, Marlon, Kim, Karl"</span></div></pre></td></tr></table></figure>
+<h2 id="Sequence-map"><a href="#Sequence-map" class="headerlink" title="Sequence.map"></a>Sequence.map</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> cast = [<span class="string">"Vivien"</span>, <span class="string">"Marlon"</span>, <span class="string">"Kim"</span>, <span class="string">"Karl"</span>]</div><div class="line"><span class="keyword">let</span> lowercaseNames = cast.<span class="built_in">map</span> &#123; $<span class="number">0</span>.lowercaseString &#125;</div><div class="line"><span class="comment">// 'lowercaseNames' == ["vivien", "marlon", "kim", "karl"]</span></div><div class="line"><span class="keyword">let</span> letterCounts = cast.<span class="built_in">map</span> &#123; $<span class="number">0</span>.characters.<span class="built_in">count</span> &#125;</div><div class="line"><span class="comment">// 'letterCounts' == [6, 6, 3, 4]</span></div></pre></td></tr></table></figure>
+<h2 id="Sequence-reduce"><a href="#Sequence-reduce" class="headerlink" title="Sequence.reduce"></a>Sequence.reduce</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1</span></div><div class="line"><span class="keyword">let</span> a = [<span class="string">"Sofia"</span>, <span class="string">"Camilla"</span>, <span class="string">"Martina"</span>, <span class="string">"Mateo"</span>, <span class="string">"Nicolás"</span>].<span class="built_in">reduce</span>(<span class="string">""</span>) &#123; $<span class="number">0</span> + $<span class="number">1</span> &#125;</div><div class="line"><span class="built_in">print</span>(a)</div><div class="line"><span class="comment">// "" + "Sofia" + "Camilla" + "Martina" + "Mateo" + "Nicolás"</span></div><div class="line"><span class="comment">// SofiaCamillaMartinaMateoNicolás</span></div><div class="line"><span class="comment">// 2</span></div><div class="line"><span class="keyword">let</span> numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</div><div class="line"><span class="keyword">let</span> addTwo: (<span class="type">Int</span>, <span class="type">Int</span>) -&gt; <span class="type">Int</span> = &#123; x, y <span class="keyword">in</span> x + y &#125;</div><div class="line"><span class="keyword">let</span> numberSum = numbers.<span class="built_in">reduce</span>(<span class="number">0</span>, addTwo)</div><div class="line"><span class="built_in">print</span>(numberSum) <span class="comment">// 10</span></div></pre></td></tr></table></figure>
+<h2 id="Sequence-reversed"><a href="#Sequence-reversed" class="headerlink" title="Sequence.reversed"></a>Sequence.reversed</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> numbers = [<span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>]</div><div class="line"><span class="keyword">for</span> number <span class="keyword">in</span> numbers.reversed() &#123;</div><div class="line">    <span class="built_in">print</span>(number)</div><div class="line">&#125;</div><div class="line"><span class="comment">// Prints "7"</span></div><div class="line"><span class="comment">// Prints "5"</span></div><div class="line"><span class="comment">// Prints "3"</span></div><div class="line"><span class="keyword">let</span> reversedNumbers = <span class="type">Array</span>(numbers.reversed())</div><div class="line"><span class="built_in">print</span>(reversedNumbers)</div><div class="line"><span class="comment">// Prints "[7, 5, 3]"</span></div></pre></td></tr></table></figure>
+<h2 id="Sequence-starts-with"><a href="#Sequence-starts-with" class="headerlink" title="Sequence.starts(with:)"></a>Sequence.starts(with:)</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> a = <span class="number">1</span>...<span class="number">3</span></div><div class="line"><span class="keyword">let</span> b = <span class="number">1</span>...<span class="number">10</span></div><div class="line"><span class="built_in">print</span>(b.starts(with: a))</div><div class="line"><span class="comment">// Prints "true"</span></div></pre></td></tr></table></figure>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持 fandy</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2016/09/24/iOS/Xcode8屏蔽杂乱打印问题/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2017/02/07/iOS/URLEncode/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
+    
+    var disqus_url = 'https://fandyliu.github.io/2016/10/01/iOS/Sequence函数/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
