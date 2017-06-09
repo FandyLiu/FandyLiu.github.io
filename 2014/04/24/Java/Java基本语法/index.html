@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>Java 基本语法 | Fandy&#39;s Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="基础,语法," />
+  
+
+  <meta name="description" content="Java基本语法: Java 语言严格区分大小写，好比 main 和 Main 是完全不同的概念。 一个 Java 源文件里可以定义多个 Java 类，但其中最多有一个类被定义成 public 类。若源文件中包括了 public 类，源文件必须和该 public 类同名（没有源文件名随便起）。 一个源文件中包含 N 个 Java 类时，编译后会生成 N 份字节码文件，即每个类都会生成一份单独的 .">
+<meta name="keywords" content="基础,语法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 基本语法">
+<meta property="og:url" content="https://fandyliu.github.io/2014/04/24/Java/Java基本语法/index.html">
+<meta property="og:site_name" content="Fandy&#39;s Blog">
+<meta property="og:description" content="Java基本语法: Java 语言严格区分大小写，好比 main 和 Main 是完全不同的概念。 一个 Java 源文件里可以定义多个 Java 类，但其中最多有一个类被定义成 public 类。若源文件中包括了 public 类，源文件必须和该 public 类同名（没有源文件名随便起）。 一个源文件中包含 N 个 Java 类时，编译后会生成 N 份字节码文件，即每个类都会生成一份单独的 .">
+<meta property="og:image" content="http://ooxag17nr.bkt.clouddn.com/Java/Java%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95Java%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png">
+<meta property="og:updated_time" content="2014-04-24T15:10:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java 基本语法">
+<meta name="twitter:description" content="Java基本语法: Java 语言严格区分大小写，好比 main 和 Main 是完全不同的概念。 一个 Java 源文件里可以定义多个 Java 类，但其中最多有一个类被定义成 public 类。若源文件中包括了 public 类，源文件必须和该 public 类同名（没有源文件名随便起）。 一个源文件中包含 N 个 Java 类时，编译后会生成 N 份字节码文件，即每个类都会生成一份单独的 .">
+<meta name="twitter:image" content="http://ooxag17nr.bkt.clouddn.com/Java/Java%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95Java%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png">
+
+  
+
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java基本语法"><span class="toc-text">Java基本语法:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关键字与保留字"><span class="toc-text">关键字与保留字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#变量与常量"><span class="toc-text">变量与常量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据类型"><span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本数据类型"><span class="toc-text">基本数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#String"><span class="toc-text">String</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运算"><span class="toc-text">运算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#表达式自动类型提升"><span class="toc-text">表达式自动类型提升</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运算特例"><span class="toc-text">运算特例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-text">+=</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑运算符"><span class="toc-text">逻辑运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#位运算符"><span class="toc-text">位运算符</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#循环中运算终止语句"><span class="toc-text">循环中运算终止语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法的重载"><span class="toc-text">方法的重载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组"><span class="toc-text">数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#面向对象"><span class="toc-text">面向对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构造方法"><span class="toc-text">构造方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修饰符"><span class="toc-text">修饰符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#static"><span class="toc-text">static</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Eclipse"><span class="toc-text">Eclipse</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jar"><span class="toc-text">jar</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#String-1"><span class="toc-text">String</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#package语句"><span class="toc-text">package语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#import语句"><span class="toc-text">import语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#表示去java-util包下寻找被使用到的类。"><span class="toc-text">表示去java.util包下寻找被使用到的类。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#访问权限修饰符"><span class="toc-text">访问权限修饰符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#子类方法覆盖"><span class="toc-text">子类方法覆盖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#异常"><span class="toc-text">异常</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#finally"><span class="toc-text">finally</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#面试"><span class="toc-text">面试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#带异常的方法重写"><span class="toc-text">带异常的方法重写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#异常分类"><span class="toc-text">异常分类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#异常的分类"><span class="toc-text">异常的分类:</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#异常的转型"><span class="toc-text">异常的转型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#抽象类"><span class="toc-text">抽象类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一般的：习惯性把abstract写在方法访问修饰符的后面，一看就知道是抽象方法。"><span class="toc-text">一般的：习惯性把abstract写在方法访问修饰符的后面，一看就知道是抽象方法。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#⑥-是不完整的类，需作为基类，子类去拓展和实现它的功能。"><span class="toc-text">⑥　是不完整的类，需作为基类，子类去拓展和实现它的功能。</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Java/Java基本语法" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Java 基本语法</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2014.04.24</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Fandy</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://fandyliu.github.io/2014/04/24/Java/Java基本语法/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="Java基本语法"><a href="#Java基本语法" class="headerlink" title="Java基本语法:"></a>Java基本语法:</h2><ol>
+<li>Java 语言严格<code>区分大小写</code>，好比 main 和 Main 是完全不同的概念。</li>
+<li>一个 Java 源文件里可以定义多个 Java 类，但其中<code>最多有一个</code>类被定义成 public 类。若源文件中包括了 public 类，源文件必须和该 public 类同名（没有源文件名随便起）。</li>
+<li>一个源文件中包含 N 个 Java 类时，编译后会生成 N 份字节码文件，即每个类都会生成一份单独的 .class文件，且字节码文件名和其对应的类名相同。</li>
+<li>每一个类必须拥有 main 方法才能运行,因为 main 方法是程序的入口。<a id="more"></a>
+</li>
+</ol>
+<h2 id="关键字与保留字"><a href="#关键字与保留字" class="headerlink" title="关键字与保留字"></a>关键字与保留字</h2><ul>
+<li><p>关键字：在编程语言中有一些事先定义的，有着特殊含义和用途的单词。</p>
+</li>
+<li><p>保留字：和关键字一样都是编程语言事先定义好的，只是说现在暂时没有特殊的用途，但说不定以后某天会突然被赋予意义和被使用到，因此被保留下来的单词。</p>
+</li>
+</ul>
+<p>注意：关键字和保留字都是由小写字母组成。 java 无 sizeof 、goto、 const 关键字。</p>
+<h2 id="变量与常量"><a href="#变量与常量" class="headerlink" title="变量与常量"></a>变量与常量</h2><ul>
+<li><p>常量：程序中固定不变化的值。分为两类：</p>
+<ul>
+<li>字面量：一个写死的固定不变的值。</li>
+<li>final修饰的变量。</li>
+</ul>
+</li>
+<li><p>变量的定义:在程序执行的过程中，其值在某个范围内可以改变的量，可以理解为数学中的未知数。</p>
+</li>
+</ul>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>Java是强类型的语言，对于每一种数据都定义了明确的数据类型。</p>
+<ol>
+<li>基本数据类型，又称为原生数据类型；</li>
+<li>引用数据类型，又称为对象数据类型，包括类，接口，数组；</li>
+</ol>
+<h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><p><img src="http://ooxag17nr.bkt.clouddn.com/Java/Java%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95Java%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png" alt=""></p>
+<ul>
+<li><p>默认情况下，一个整型的字面量是 int 类型。若要声明一个 long 型字面量，字面量后加上 <code>l</code> 或 <code>L</code>，因小写的 <code>l</code> 容易和数字 <code>1</code> 相混淆，建议使用大写 <code>L</code>。当然赋值给 short 和 byte 类型变量的时候有隐式转换所以不会报错。</p>
+</li>
+<li><p>默认情况下，一个浮点型的字面量是 double 类型。若要声明一个 float 型字面量，则需在常量后加上 <code>f</code> 或 <code>F</code>，double 常量后面的 <code>D</code> 或 <code>d</code> 可省略。</p>
+</li>
+</ul>
+<p>因为 float 和 double 都不能精确的表示小数，那么在精度要求高的系统比如银行系统里，要用 <code>BigDecimal</code> 类型，它能表示任意精度的数据。</p>
+<p>char类型：只能存储 1 个字符，Java 对字符采用 Unicode 字符编码。<br>Unicode 收集了世界上各国语言文字中的字符，是一种跨平台的编码方式，Java的字符占两个字节，可以表示一个汉字。</p>
+<p>char 类型本质其实也是整数。</p>
+<p>ASCII 表对应  0-48、A-65、a-97</p>
+<h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><p>字符串拼接: 字符串和任意数据类型相连接，结果都是字符串类型。</p>
+<h2 id="运算"><a href="#运算" class="headerlink" title="运算"></a>运算</h2><h3 id="表达式自动类型提升"><a href="#表达式自动类型提升" class="headerlink" title="表达式自动类型提升"></a>表达式自动类型提升</h3><ol>
+<li>在做运算的时候所有的 byte、short、char 类型被自动提升到 int 类型</li>
+<li>整个表达式的最终结果类型被提升到表达式中类型最高的类型</li>
+</ol>
+<h3 id="运算特例"><a href="#运算特例" class="headerlink" title="运算特例"></a>运算特例</h3><ul>
+<li><code>当整数除以 0 的时候</code>：会引发算术异常；</li>
+<li><code>正无穷大(Infinity)</code>：正整数除以 0.0 时；</li>
+<li><code>负无穷大(-Infinity)</code>：负整数除以 0.0 时；</li>
+<li><code>NaN(Not a Number)</code>：当 0.0 除以 0.0 时，或者当一个正浮点类型数除以 0 时，或者当一个负浮点类型数除以 0 时；</li>
+</ul>
+<p>注意：无穷大和 NaN 都属于 double 浮点类型，但是所有正无穷大都是相等的，所有负无穷大也是相等的，NaN永远不相等，也不等于自己。</p>
+<h3 id=""><a href="#" class="headerlink" title="+="></a>+=</h3><p>加等于：x += 5; 相当于 x = x + 5，但还包括<strong>隐式类型转换</strong>。</p>
+<h3 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h3><ol>
+<li><code>&amp;</code>：表示并且，当操作数 A 和 B 都为 true 结果才为 true，否则结果 result 是 false。</li>
+<li><code>&amp;&amp;</code>：和 &amp; 结果相同，具有短路效果，如果左边操作数 A 是 false，result 一定为 false，且不运行B的运算。</li>
+<li><code>|</code>：表示或者，A 和 B 都为 false 结果 result 为 false，只要有 A 或 B 是 true，结果就是 true。</li>
+<li><code>||</code>：和 | 结果相同，具有短路效果，如果左边操作数 A 是 true，result 一定为 true，且不运行 B 的运算。</li>
+<li><code>^</code>：判断 A 和 B 是否不同，不同则为true，相同则为false。</li>
+<li><code>!</code>：取反，!true 结果是 false，!fasle 结果是 true。</li>
+</ol>
+<h3 id="位运算符"><a href="#位运算符" class="headerlink" title="位运算符"></a>位运算符</h3><ol>
+<li><code>&amp;</code>：参与运算的两个数，若相应位数的值都为 1，则该位结果值是 1，否则是 0。</li>
+<li><code>|</code>：参与运算的两个数相应位中只要有一个 1，结果就是1 。</li>
+<li><code>^</code>：参与运算的两个数相应位相同则结果为 0，否则为 1。</li>
+<li><code>~</code> ：表示把每个二进制位的“1”换成“0”，把“0”换成“1”。</li>
+<li><code>&lt;&lt;</code>：将操作数的二进制码整体左移指定位数，左移之后的空使用“0”来补充。</li>
+<li><code>&gt;&gt;</code>：将操作数的二进制码整体右移指定位数，右移之后的空使用“符号位”来补充：</li>
+<li><code>&gt;&gt;&gt;</code>：将操作数的二进制码整体右移指定位数，右移之后的空位使用“0”来补充。</li>
+</ol>
+<h2 id="循环中运算终止语句"><a href="#循环中运算终止语句" class="headerlink" title="循环中运算终止语句"></a>循环中运算终止语句</h2><p>break：结束当前所在循环<br>continue：结束当前这次循环，继续下次循环<br>return：结束所在的方法，方法都结束了，循环结构自然也就结束了。</p>
+<p>在循环嵌套中，单独控制外层循环该怎么做？<br>此时就得使用标签了，标签就是给某个循环起的别名，不过该别名得满足标识符的规范。<br>若要控制外层循环,就在break或continue后面跟上循环的别名就OK了<br>   如: break &lt;标签名&gt;;</p>
+<h2 id="方法的重载"><a href="#方法的重载" class="headerlink" title="方法的重载"></a>方法的重载</h2><p><code>方法的重载</code>：在同一个类中，允许多个方法的名字相同，但是他们的参数列表绝对不能相同。</p>
+<p>这种设计遵守的原则：两同一不同。<br>两同：同一个类，方法名相同。<br>一不同：形参列表不同。</p>
+<p>注意：方法重载和方法的返回值类型无关。</p>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2><p>三大特征：<br>封装(Encapsulation)；<br>继承(Inheritance)；<br>多态(Polymorphism)；</p>
+<p>封装是指将对象的实现细节隐藏起来，然后通过公共的方法来向外暴露该对象的功能。<br>继承是面向对象实现软件复用的重要手段，当子类继承父类后，子类是一种特殊的父类，能直接或间接获得父类里的成员。<br>多态是可以直接把子类对象赋给父类变量，但是运行时依然表现出子类的行为特征，这意味着同一类型的对象在运行时可能表现出不同的行为特征。</p>
+<p>注意：<br>       面向对象是基于面向过程的</p>
+<h2 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h2><p>构造器特点:<br>1.方法名与类名相同：<br>这样我们才知道当前创建的是哪个类型的实例。<br>2.不用定义返回值类型：<br>这个方法就是初始化该对象的数据，因为要返回肯定就是自身的类型。<br>3.可以写return语句，但是不能跟有值：<br>因为要返回的一定是初始化好的对象。</p>
+<p>当一个类中没有显示定义构造器时,那么编译器会默认给该类提供一个构造器，其特点是：无参、空方法体、访问修饰符和所在类的访问修饰符相同。</p>
+<p>在类中一旦显示</p>
+<h2 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h2><h3 id="static"><a href="#static" class="headerlink" title="static"></a>static</h3><p>static修饰符表示静态的，固定的，可修饰字段、方法、内部类，其修饰的成员属于类,也就是说static修饰的资源属于类级别,而不是对象级别。</p>
+<p>特点：<br>1.随着类的加载而加载(其生命周期和类一样长)：<br>随着人类产生的同时，人类也就有了文明前进的行为。<br>2.优先于对象存在：<br>类成员是字节码被加载进JVM时就存在了，而对象时后来new出来的。<br>3.被所有对象所共享：<br>既然是人类具备的行为特征，那么每一个人对象也应该具备。<br>4.可以直接被类名调用：<br>类成员直接属于某一类事物,那么就应该让该类事物来直接调用。</p>
+<p>使用static修饰的字段不是存储在堆内存的，而是存储在独立于堆内存和栈内存的方法区内存中，可以被该类所有的对象所共享。</p>
+<h2 id="Eclipse"><a href="#Eclipse" class="headerlink" title="Eclipse"></a>Eclipse</h2><p>Eclipse介绍:一款使用Java语言编写的基于插件的IDE(集成开发环境)工具</p>
+<h3 id="jar"><a href="#jar" class="headerlink" title="jar"></a>jar</h3><p>一.命令行制作方式<br>jar命令格式：jar {c t x u f }[ v m e 0 M i ][-C 目录]文件名…<br>其中{ctxu}这四个参数至少选其一。[v f m e 0 M i ]是可选参数，文件名也是必须的。</p>
+<p>一般使用:<br>    jar cvf 文件名.jar 类全名<br>    jar cvf 文件名.jar -C     </p>
+<h2 id="String-1"><a href="#String-1" class="headerlink" title="String"></a>String</h2><p>String对象比较:<br>1）：单独使用””引号创建的字符串都是直接量,编译期就已经确定存储到常量池中；<br>2）：使用new String(“”)创建的对象会存储到堆内存中,是运行期才创建；<br>3）：使用只包含直接量的字符串连接符如”aa” + “bb”创建的也是直接量编译期就能确定,已经确定存储到常量池中；<br>4）：使用包含String直接量(无final修饰符)的字符串表达式(如”aa” + s1)创建的对象是运行期才创建的,存储在堆中；</p>
+<p>String对象.</p>
+<pre><code>-----&gt;不擅长做字符串的连接操作,性能太低.
+</code></pre><hr>
+<p>解决方案: 使用可变的字符串,内容改变之后,对象依然不变.<br>StringBuidler/StringBuffer:<br>——面试——————-<br>StringBuffer  :特点: 线程安全性较高,但是性能较低.                 多线程使用StringBuffer.<br>StringBuilder :特点: 线程安全性较低,当时性能较高. 推荐        单线程使用StringBuilder.</p>
+<h2 id="package语句"><a href="#package语句" class="headerlink" title="package语句"></a>package语句</h2><p>编译和运行带有包名的类<br>编译带包名的java文件：必须要使用参数: -d 文件夹<br>javac -d . Hello.java</p>
+<h2 id="import语句"><a href="#import语句" class="headerlink" title="import语句"></a>import语句</h2><p>语法1： import 类的全限定名;<br>import 完整包名.类名;<br>语法2:import java.util.*;</p>
+<h2 id="表示去java-util包下寻找被使用到的类。"><a href="#表示去java-util包下寻找被使用到的类。" class="headerlink" title="表示去java.util包下寻找被使用到的类。"></a>表示去java.util包下寻找被使用到的类。</h2><p>静态导入：告诉编译器去哪一个包下的指定的类中去找某个静态方法或字段。<br>语法1： import static 类的全限定名.静态成员;<br>import static java.lang.Math.PI;<br>import static java.lang.Math.max;<br>语法2:import static java.lang.Math.<em>;<br>表示去java.lang.Math类中寻找被使用到的静态成员。<br>注意：</em> 只能表示静态成员，不能表示实例成员。<br>静态导入的可读性差,一般很少用,大家了解用法即可</p>
+<h2 id="访问权限修饰符"><a href="#访问权限修饰符" class="headerlink" title="访问权限修饰符"></a>访问权限修饰符</h2><p>①　private(类私有)：本类内部可以访问，同包内不能访问，不能被子类继承。<br>②　无(包私有)：本类内部可以访问，同包其他类也可以访问，能被同包的子类继承。不同包子类不能继承和访问。<br>③　protected（包和子类私有）：本类内部可以访问，不同包的子类也可以访问，同包其他类也可以访问，能被子类所继承。<br>④　public(公共)：任何地方都可以访问，能继承到子类。<br>注意：类的访问修饰符只有 public和缺省，即public class A{}或者class A{}</p>
+<p>final本身的含义是“不可改变的/最终的”，它可以修饰非抽象类，非抽象方法和变量。</p>
+<p>注意：构造方法不能使用final修饰，因为构造方法不能被继承，肯定是最终的。</p>
+<p>什么时候把方法设计成final的呢？<br>1.在构造器里调用的初始化方法。<br>2.只想被子类调用，不想被子类复写的方法，如：父类提供基本业务算法</p>
+<p>常量名规范：常量名符合标识符，单词全部大写，单词间使用”_”(下划线)隔开。</p>
+<p>final修饰基本类型变量：表示该变量的值不能改变，即不能用“=”号重新赋值。<br>final修饰引用类型变量：表示该变量的引用的地址不能变，而不是引用地址里的内容不能变。</p>
+<p>只要满足以下条件就可以把一个类设计成final类：<br>①　某类不是专门为继承而设计。<br>②　出于安全考虑，类的实现细节不许改动。<br>③　确信该类不会再被拓展。<br>java里final修饰的类有很多，比如八大基本数据类型包装类和String类等。</p>
+<p>子类到底继承了父类的哪些成员:<br>   1):SubClass类能继承SuperClass类中的public和protected成员(字段、方法、内部类)。<br>   2):当SubClass和SuperClass类是位于同一包中，SubClass类会继承SuperClass类中的默认访问权限成员。<br>   3):私有成员和构造器，绝对继承不到。构造器不存在继承体系中,只能调用</p>
+<h2 id="子类方法覆盖"><a href="#子类方法覆盖" class="headerlink" title="子类方法覆盖"></a>子类方法覆盖</h2><p>方法覆写的原则（一同两小一大）：<br>一同：<br>①　实例方法签名必须相同。 (方法签名= 方法名 + 方法的参数列表)<br>两小：<br>②　子类方法的返回值类型是父类方法的返回值类型的子类或相同类。<br>③　子类方法声明抛出的异常应比父类方法声明抛出的异常更小或相等。<br>子类方法中声明抛出的异常小于或等于父类方法声明抛出异常类型；<br>子类方法可以同时声明抛出多个属于父类方法声明抛出异常类的子类(RuntimeException类型除外)；<br>一大：<br>④　子类方法的访问权限比父类方法访问权限更大或相等。</p>
+<p>判断是否是覆写方法的必杀技：@Override标签：若方法是覆写方法，在方法前或上贴上该注解， 编译通过表示覆写成功，否则，编译报错。</p>
+<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><p>异常：指的是程序在执行过程中，出现的非正常的情况，最终会导致线程的非正常停止。</p>
+<p>异常的祖先是Throwable，有如下两个子类：</p>
+<pre><code>Error：表示错误，错误产生后程序员不能通过代码的方式纠正，只能事先避免，好比绝症。
+Exception：表示异常，异常产生后程序员可以通过代码的方式纠正，使程序继续运行，是必须要处理的
+</code></pre><p>Throwable中的常用方法</p>
+<pre><code>public void printStackTrace()；打印异常的详细信息
+public String getMessage()；获取发生异常的原因
+</code></pre><h3 id="finally"><a href="#finally" class="headerlink" title="finally"></a>finally</h3><p>finaly关键字，用于表示一个代码块。特点，无论是否有异常，最终都会执行finally代码块<br>目的：释放资源</p>
+<p>语法有两种：<br>    try-finally<br>    try-catch-finally</p>
+<h2 id="面试"><a href="#面试" class="headerlink" title="面试"></a>面试</h2><p>1):说说Error和Exception的区别.<br>    Error:是不应该使用代码来解决的错误<br>    Exception:应该使用代码的方式来解决的异常,不解决最终导致JVM异常停止</p>
+<p>2):final,finally,finalize的区别.<br>    final:修饰符,表示最终.修饰变量表示的是常量,值不能被修改.修饰方法表示该方法不能被子类所重写.修饰类表示的是该类不能被继承<br>    finally:表示的是一个代码块,这个代码块的特点是无论是否有异常,都会被执行<br>    finalize:这个是Object类上的方法,这个方法是给GC回收对象时调用的,该方法只会被调用1次,我们不要乱来</p>
+<p>3):return和finally谁先执行.<br>    先return在执行finally</p>
+<p>4):无论是否有异常,finally代码块中的代码都会执行,这句话对吗?<br>    不对,System.exit()可以退出JVM,JVM都退出了,代码怎么执行啊? </p>
+<p>当一个方法在执行过程中,数据出现异常时,就应该使用throw抛出一个异常对象,返回给方法的调用者,异常也是一种返回类型</p>
+<h3 id="带异常的方法重写"><a href="#带异常的方法重写" class="headerlink" title="带异常的方法重写"></a>带异常的方法重写</h3><p>一同两小一大<br>异常的总类少 异常的类型小<br>同 子类方法覆盖</p>
+<h3 id="异常分类"><a href="#异常分类" class="headerlink" title="异常分类"></a>异常分类</h3><h2 id="异常的分类"><a href="#异常的分类" class="headerlink" title="异常的分类:"></a>异常的分类:</h2><p>Exception分成两大类:<br>   1):编译时期异常:Checked:Exception类和他的子类,除了RuntimeException家族其他的就是编译时期异常.<br>   2):运行时期异常:Runtime: RuntimeExeption类和RuntimeException的子类.</p>
+<p>编译时异常: 要求我们必须处理异常(throws/try-catch),不处理,则编译不能通过.<br>运行时异常: 可处理,可不处理.</p>
+<p>推荐使用RuntimeException.</p>
+<h3 id="异常的转型"><a href="#异常的转型" class="headerlink" title="异常的转型"></a>异常的转型</h3><p>将编译时异常转换成运行时异常,保持异常链的传递</p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 异常的转型 将编译时异常转换成运行时异常,保持异常链的传递</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> work() &#123;</div><div class="line">			<span class="keyword">try</span> &#123;</div><div class="line">				<span class="keyword">new</span> FileInputStream(<span class="string">"a"</span>);</div><div class="line">			&#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</div><div class="line">				throw <span class="keyword">new</span> RuntimeException(e);</div><div class="line">			&#125;</div><div class="line">		</div><div class="line">	&#125;</div><div class="line">```<span class="meta">### 自定义异常</span></div><div class="line">建议继承 RutimeException</div><div class="line">重写 至少 <span class="number">3</span>个方法<span class="meta">## 构造方法</span></div><div class="line"></div><div class="line">子类初始化:    子类的构造器第一行必须调用父类的构造器	如果父类有默认的无参构造器，我们可以不用显示调用，编译器会帮我们在编译时加上	如果父类没有无参构造，则必须使用super手动调用父类的构造器，否则编译不能通过<span class="meta">## 隐藏问题</span></div><div class="line"></div><div class="line"></div><div class="line">所谓隐藏就是“遮蔽”的意思。　①满足继承的访问权限下，隐藏父类字段：若子类中定义的字段和父类中的字段名相同(不管类型)，此时就是隐藏父类字段，此时只能通过super访问被隐藏的字段。②隐藏本类字段：若同类中某局部变量名和字段名相同，此时就是隐藏本类字段，此时只能通过<span class="keyword">this</span>访问被隐藏的字段。③满足继承的访问权限下，隐藏父类静态方法：若子类定义的静态方法的签名和父类中的静态方法签名相同，那么此时就是隐藏父类静态方法。<span class="meta">## object 对象</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">### equals 方法在非空对象引用上实现相等关系：</span></div><div class="line"></div><div class="line">自反性：对于任何非空引用值 x，x.equals(x) 都应返回 <span class="literal">true</span>。</div><div class="line">对称性：对于任何非空引用值 x 和 y，当且仅当 y.equals(x) 返回 <span class="literal">true</span> 时，x.equals(y) 才应返回 <span class="literal">true</span>。</div><div class="line">传递性：对于任何非空引用值 x、y 和 z，如果 x.equals(y) 返回 <span class="literal">true</span>，并且 y.equals(z) 返回 <span class="literal">true</span>，那么 x.equals(z) 应返回 <span class="literal">true</span>。</div><div class="line">一致性：对于任何非空引用值 x 和 y，多次调用 x.equals(y) 始终返回 <span class="literal">true</span> 或始终返回 <span class="literal">false</span>，前提是对象上 equals 比较中所用的信息没有被修改。</div><div class="line">对于任何非空引用值 x，x.equals(<span class="literal">null</span>) 都应返回 <span class="literal">false</span>。</div><div class="line"><span class="built_in">Object</span> 类的 equals 方法实现对象上差别可能性最大的相等关系；即，对于任何非空引用值 x 和 y，当且仅当 x 和 y 引用同一个对象时，此方法才返回 <span class="literal">true</span>（x == y 具有值 <span class="literal">true</span>）。</div><div class="line"></div><div class="line">注意：当此方法被重写时，通常有必要重写 hashCode 方法，以维护 hashCode 方法的常规协定，该协定声明相等对象必须具有相等的哈希码。</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">### hashCode</span></div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">int</span> hashCode()</div><div class="line">返回该对象的哈希码值。支持此方法是为了提高哈希表（例如 java.util.Hashtable 提供的哈希表）的性能。</div><div class="line"><span class="meta">#### hashCode 的常规协定是：</span></div><div class="line"></div><div class="line">在 Java 应用程序执行期间，在对同一对象多次调用 hashCode 方法时，必须一致地返回相同的整数，前提是将对象进行 equals 比较时所用的信息没有被修改。从某一应用程序的一次执行到同一应用程序的另一次执行，该整数无需保持一致。</div><div class="line">如果根据 equals(<span class="built_in">Object</span>) 方法，两个对象是相等的，那么对这两个对象中的每个对象调用 hashCode 方法都必须生成相同的整数结果。</div><div class="line">如果根据 equals(java.lang.<span class="built_in">Object</span>) 方法，两个对象不相等，那么对这两个对象中的任一对象上调用 hashCode 方法不 要求一定生成不同的整数结果。但是，程序员应该意识到，为不相等的对象生成不同整数结果可以提高哈希表的性能。</div><div class="line">实际上，由 <span class="built_in">Object</span> 类定义的 hashCode 方法确实会针对不同的对象返回不同的整数。（这一般是通过将该对象的内部地址转换成一个整数来实现的，但是 JavaTM 编程语言不需要这种实现技巧。）</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">返回：</div><div class="line">此对象的一个哈希码值。</div><div class="line">另请参见：</div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">### toString</span></div><div class="line"></div><div class="line"><span class="keyword">public</span> String toString()</div><div class="line">返回该对象的字符串表示。通常， toString 方法会返回一个“以文本方式表示”此对象的字符串。结果应是一个简明但易于读懂的信息表达式。建议所有子类都重写此方法。</div><div class="line"><span class="built_in">Object</span> 类的 toString 方法返回一个字符串，该字符串由类名（对象是该类的一个实例）、at 标记符“@”和此对象哈希码的无符号十六进制表示组成。换句话说，该方法返回一个字符串，它的值等于：</div><div class="line"></div><div class="line">getClass().getName() + <span class="string">'@'</span> + Integer.toHexString(hashCode())</div><div class="line"> </div><div class="line">返回：</div><div class="line">该对象的字符串表示形式</div><div class="line"></div><div class="line"><span class="meta">## 多态</span></div><div class="line"></div><div class="line">父类指向了子类对象的引用的现象称为多态。语法格式：boolean b = 对象A   instanceof  类B;注意：instanceof使用时，对象和类型之间必须是要有关系的，否则编译就报错其实在开发中instanceof很少使用，因为在开发中，我们是知道对象的真是类型的，直接就强转了，很少去做判断若SuperClass是SubClass的父类或其接口：<span class="number">1.</span>若doWork方法只存在于SubClass类中，不存在于SuperClass 类中。SuperClass 类型的变量不能调用到subClass中的方法<span class="number">2.</span>若doWork方法是SuperClass和SubClass类中的静态方法，此时子类doWork方法被隐藏，调用的是父类的doWork方法，此时变量obj调用doWork方法时不具备多态特征，也就不存在多态。（由于编译的时候编译器会把 调用者直接改为类）<span class="number">3.</span>若doWork方法是子类覆写父类的方法，此时变量obj调用的doWork方法实际上是子类里的doWork方法。(运行多态)<span class="meta">### 构造代码块</span></div><div class="line"></div><div class="line">直接定义在类中，与方法平行，在创建对象的时候执行。每创建一个对象执行一次特点:优先于构造方法执行,每次实例化对象之前都会执行构造代码块。其实编译时就是把这个代码块中的代码放到了构造方法中代码的前面。其实就是把构造代码块中的代码放到构造方法中所有代码的前面,位于<span class="keyword">this</span>(),super()之后成员变量的赋值,优先于构造代码块</div></pre></td></tr></table></figure>
+<p>class Demo {<br>    String name = “a”;</p>
+<pre><code>Demo() {
+    System.out.println(&quot;构造方法&quot;);
+}
+
+//构造代码块
+{
+    System.out.println(&quot;构造代码块&quot;);
+}
+</code></pre><p>}</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">编译中间代码</div></pre></td></tr></table></figure>
+<p>class Demo {<br>    String name;</p>
+<pre><code>Demo() {
+   name = &quot;a&quot;;
+   System.out.println(&quot;构造代码块&quot;);
+    System.out.println(&quot;构造方法&quot;);
+}
+</code></pre><p>}</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"><span class="comment"># 静态代码块</span></span></div><div class="line"></div><div class="line">使用static修饰的构造代码块,称为静态代码块,用于初始化类中的静态成员变量.其特点是:1.当字节码被加载到JVM的时候执行2.只会执行1次</div></pre></td></tr></table></figure>
+<p>class Demo {<br>    static int num = 100;<br>    static {<br>        System.out.println(“static .. code”);<br>        num = 10;<br>    }<br>}</p>
+<p>```</p>
+<h2 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h2><p>在java中如果一个方法的方法体没有意义,就不应该有方法体，这种没有方法体的方法我们称为抽象方法,必须使用abstract修饰,该类中有抽象方法,就必须定义成抽象类。</p>
+<p>使用abstract修饰且没有方法体的方法，称为抽象方法。<br>特点：<br>①　使用抽象abstract修饰，方法没有方法体，留给子类去实现。<br>②　抽象方法修饰符不能是private 和 final以及static，为什么？<br>③　抽象方法必须定义在抽象类或接口中。</p>
+<h2 id="一般的：习惯性把abstract写在方法访问修饰符的后面，一看就知道是抽象方法。"><a href="#一般的：习惯性把abstract写在方法访问修饰符的后面，一看就知道是抽象方法。" class="headerlink" title="一般的：习惯性把abstract写在方法访问修饰符的后面，一看就知道是抽象方法。"></a>一般的：习惯性把abstract写在方法访问修饰符的后面，一看就知道是抽象方法。</h2><p>使用abstract关键字修饰的类。<br>特点：<br>①　不能创建实例即不能new一个抽象类。(不能创建对象)<br>②　可以不包含抽象方法，若一旦包含，该类必须作为抽象类。<br>③　若子类没有实现父类所有的抽象方法，那么子类也得作为抽象类(抽象派生类)。<br>④　构造方法不能都定义成私有的，否则不能有子类(创建子类对象前先调用父类构造方法)。<br>⑤　抽象类不能使用final修饰，因为必须有子类，抽象方法才能得以实现。</p>
+<h2 id="⑥-是不完整的类，需作为基类，子类去拓展和实现它的功能。"><a href="#⑥-是不完整的类，需作为基类，子类去拓展和实现它的功能。" class="headerlink" title="⑥　是不完整的类，需作为基类，子类去拓展和实现它的功能。"></a>⑥　是不完整的类，需作为基类，子类去拓展和实现它的功能。</h2><p>注意：抽象类中可以没有抽象的方法，但是有抽象方法的类一定是抽象类</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持 fandy</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2014/04/18/Java/Java异常机制/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2014/05/04/Java/工具类/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
+    
+    var disqus_url = 'https://fandyliu.github.io/2014/04/24/Java/Java基本语法/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

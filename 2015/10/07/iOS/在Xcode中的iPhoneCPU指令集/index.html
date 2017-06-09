@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>在 Xcode 中的 iPhone CPU 指令集 | Fandy&#39;s Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Xcode,Bug,模拟器,CPU架构," />
+  
+
+  <meta name="description" content="ARM 处理器，因其功耗低和尺寸小而闻名，几乎所有的手机处理器都基于ARM，苹果当然也不例外。">
+<meta name="keywords" content="Xcode,Bug,模拟器,CPU架构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 Xcode 中的 iPhone CPU 指令集">
+<meta property="og:url" content="https://fandyliu.github.io/2015/10/07/iOS/在Xcode中的iPhoneCPU指令集/index.html">
+<meta property="og:site_name" content="Fandy&#39;s Blog">
+<meta property="og:description" content="ARM 处理器，因其功耗低和尺寸小而闻名，几乎所有的手机处理器都基于ARM，苹果当然也不例外。">
+<meta property="og:updated_time" content="2015-10-07T07:27:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在 Xcode 中的 iPhone CPU 指令集">
+<meta name="twitter:description" content="ARM 处理器，因其功耗低和尺寸小而闻名，几乎所有的手机处理器都基于ARM，苹果当然也不例外。">
+
+  
+
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#设备的CPU架构-指令集"><span class="toc-text">设备的CPU架构(指令集)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#模拟器"><span class="toc-text">模拟器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#真机-iOS设备"><span class="toc-text">真机(iOS设备)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Architectures-配置"><span class="toc-text">Architectures 配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#各个参数含义"><span class="toc-text">各个参数含义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Architectures"><span class="toc-text">Architectures:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Valid-Architectures"><span class="toc-text">Valid Architectures:</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Build-Active-Architecture-Only："><span class="toc-text">Build Active Architecture Only：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用实例"><span class="toc-text">使用实例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Bug"><span class="toc-text">Bug</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-iOS/在Xcode中的iPhoneCPU指令集" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">在 Xcode 中的 iPhone CPU 指令集</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2015.10.07</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Fandy</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://fandyliu.github.io/2015/10/07/iOS/在Xcode中的iPhoneCPU指令集/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p><a href="https://en.wikipedia.org/wiki/ARM_architecture" target="_blank" rel="external">ARM</a> 处理器，因其功耗低和尺寸小而闻名，几乎所有的手机处理器都基于ARM，苹果当然也不例外。</p>
+<a id="more"></a>
+<p>armv6、armv7、armv7s、arm64都是ARM处理器的指令集，所有指令集原则上都是向下兼容的。如 iPhone 4s 的 CPU 默认指令集为 armv7 指令集，但它可以同时也兼容 armv6 的指令集，只是在使用 armv6 的时候无法充分发挥其性能(无法发挥 armv7 指令集中得新特性)。</p>
+<p>iOS 模拟器没有运行 ARM 指令集，编译运行的是 x86 指令集(或 i386 )，所以只有在 iOS 设备上才会执行设备对应 ARM 指令集。</p>
+<h1 id="设备的CPU架构-指令集"><a href="#设备的CPU架构-指令集" class="headerlink" title="设备的CPU架构(指令集)"></a>设备的CPU架构(指令集)</h1><h2 id="模拟器"><a href="#模拟器" class="headerlink" title="模拟器"></a>模拟器</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">模拟器设备</th>
+<th style="text-align:center">CPU架构</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">4s-5</td>
+<td style="text-align:center">i386</td>
+</tr>
+<tr>
+<td style="text-align:center">5s-6s Plus</td>
+<td style="text-align:center">x86_64</td>
+</tr>
+</tbody>
+</table>
+<h2 id="真机-iOS设备"><a href="#真机-iOS设备" class="headerlink" title="真机(iOS设备)"></a>真机(iOS设备)</h2><ul>
+<li>armv6: iPhone、iPhone 2、iPhone 3G、iPod Touch(第一代)、iPod Touch(第二代)</li>
+<li>armv7: iPhone 3Gs、iPhone 4、iPhone 4s、iPad、iPad 2</li>
+<li>armv7s: iPhone 5、iPhone 5c (<code>静态库只要支持了armv7，就可以在armv7s的架构上运行</code>)</li>
+<li>arm64(注:无armv64): iPhone 5s、iPhone 6、iPhone 6 Plus、iPhone 6s、iPhone 6s Plus、iPad Air、iPad Air2、iPad mini2、iPad mini3</li>
+</ul>
+<h1 id="Architectures-配置"><a href="#Architectures-配置" class="headerlink" title="Architectures 配置"></a>Architectures 配置</h1><p>在 Xcode -&gt; Project/Tagets -&gt; Build Settings -&gt; Architectures 中进行设置</p>
+<h2 id="各个参数含义"><a href="#各个参数含义" class="headerlink" title="各个参数含义"></a>各个参数含义</h2><h3 id="Architectures"><a href="#Architectures" class="headerlink" title="Architectures:"></a>Architectures:</h3><p><strong>该编译选项指定了工程将被编译成支持哪些指令集</strong>，支持指令集是通过编译生成对应的<strong>二进制数据包</strong>实现的，如果支持的指令集数目有多个，就会编译出包含多个指令集代码的数据包，造成最终编译的包很大。</p>
+<h3 id="Valid-Architectures"><a href="#Valid-Architectures" class="headerlink" title="Valid Architectures:"></a>Valid Architectures:</h3><p>该编译项指定可能支持的指令集，<strong>该列表和Architectures列表的交集，将是Xcode最终生成二进制包所支持的指令集</strong>。</p>
+<p>比如，你的Valid Architectures设置的支持arm指令集版本有：armv7/armv7s/arm64，对应的Architectures设置的支持arm指令集版本有：armv7s，这时Xcode只会生成一个armv7s指令集的二进制包。</p>
+<h4 id="Build-Active-Architecture-Only："><a href="#Build-Active-Architecture-Only：" class="headerlink" title="Build Active Architecture Only："></a>Build Active Architecture Only：</h4><p>该编译项用于设置是否只编译当前使用的设备对应的arm指令集。</p>
+<p>该选项起作用的条件有两个，必须同时满足才会起作用</p>
+<ul>
+<li>其值设置为 YES</li>
+<li>Xcode 成功连接调试设备</li>
+</ul>
+<p>假定我们将 Build Active Architecture Only 值设置为 YES，同时 Xcode 连接上手机 iPhone 5s（匹配指令集 arm64）<br>注意：为了上架支持多种手机，所以<code>Release 模式一定要设置为 NO</code>.</p>
+<h1 id="使用实例"><a href="#使用实例" class="headerlink" title="使用实例"></a>使用实例</h1><p>如果你的软件对安装包大小非常敏感，你可以减少安装包中的指令集数据包，而且这能达到立竿见影的效果。</p>
+<p>根据向下兼容原则，armv7指令集的应用是可以正常在支持 armv7s/arm64 指令集的机器上运行的。</p>
+<p>不过对于armv7s/arm64指令集设备来说，使用运行armv7应用是会有一定的性能损失。</p>
+<h1 id="Bug"><a href="#Bug" class="headerlink" title="Bug"></a>Bug</h1><p>编译出错信息</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">No</span> architectures to compile <span class="keyword">for</span> (ONLY_ACTIVE_ARCH=<span class="keyword">YES</span>, active arch=arm64, VALID_ARCHS=armv7 armv7s)</div></pre></td></tr></table></figure>
+<p>可以看出：当 Build Active Architecture Only 起作用时：<br>连接的手机指令集匹配是由高到低（arm64 &gt; armv7s &gt; armv7）依次匹配的。</p>
+<p>如连接手机为iPhone 5s，其默认指令集为 arm64，若 Architectures 列表为armv7， armv7s，则会选取 armv7s 指令集为目标指令集，如果此时 Valid Architectures 列表中包含该指令集，则成功生成的二进制包只支持 armv7s指令集，若 Valid Architectures 列表不包含此指令集，则编译将会出错：</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">No</span> architectures to compile <span class="keyword">for</span> (ONLY_ACTIVE_ARCH=<span class="keyword">YES</span>, active arch=armv7s, VALID_ARCHS=armv7 arm64)</div></pre></td></tr></table></figure>
+<p>同样的，若 Architectures 列表为 armv7，则会选取 armv7 作为目标指令集，若Valid Architectures 列表中包含了 armv7 指令集，则能够成功生成二进制包，其支持的指令集只有armv7，若Valid Architectures列表中不包含armv7，则编译失败。</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持 fandy</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2015/10/01/iOS/Swift中的一些函数/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2016/07/25/iOS/RubyGems镜像/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
+    
+    var disqus_url = 'https://fandyliu.github.io/2015/10/07/iOS/在Xcode中的iPhoneCPU指令集/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

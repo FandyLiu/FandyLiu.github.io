@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>在 iOS 10 中如何跳转到系统设置页面？ | Fandy&#39;s Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="iOS 10,openURL,scheme," />
+  
+
+  <meta name="description" content="跳转问题最近在适配 iOS 10 的时候，发现自己 app 在 iOS 10 系统下跳转到设置页面的时候并不会有任何跳转反应而打印出一些错误提示。但是在 iOS 9 及其以下版本并不会有这种情况。">
+<meta name="keywords" content="iOS 10,openURL,scheme">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 iOS 10 中如何跳转到系统设置页面？">
+<meta property="og:url" content="https://fandyliu.github.io/2016/10/27/iOS/iOS10跳转系统设置页面/index.html">
+<meta property="og:site_name" content="Fandy&#39;s Blog">
+<meta property="og:description" content="跳转问题最近在适配 iOS 10 的时候，发现自己 app 在 iOS 10 系统下跳转到设置页面的时候并不会有任何跳转反应而打印出一些错误提示。但是在 iOS 9 及其以下版本并不会有这种情况。">
+<meta property="og:updated_time" content="2016-11-01T10:22:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在 iOS 10 中如何跳转到系统设置页面？">
+<meta name="twitter:description" content="跳转问题最近在适配 iOS 10 的时候，发现自己 app 在 iOS 10 系统下跳转到设置页面的时候并不会有任何跳转反应而打印出一些错误提示。但是在 iOS 9 及其以下版本并不会有这种情况。">
+
+  
+
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#跳转问题"><span class="toc-text">跳转问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查阅实验"><span class="toc-text">查阅实验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结论分析"><span class="toc-text">结论分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#些许扩展"><span class="toc-text">些许扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#UIApplicationOpenSettingsURLString"><span class="toc-text">UIApplicationOpenSettingsURLString</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#openURL-options-completionHandler"><span class="toc-text">openURL:options:completionHandler:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#iOS-10-部分-Schemes"><span class="toc-text">iOS 10 部分 Schemes</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-iOS/iOS10跳转系统设置页面" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">在 iOS 10 中如何跳转到系统设置页面？</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.10.27</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Fandy</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://fandyliu.github.io/2016/10/27/iOS/iOS10跳转系统设置页面/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="跳转问题"><a href="#跳转问题" class="headerlink" title="跳转问题"></a>跳转问题</h2><p>最近在适配 <code>iOS 10</code> 的时候，发现自己 app 在 iOS 10 系统下跳转到<code>设置</code>页面的时候并不会有任何跳转反应而打印出一些错误提示。但是在 iOS 9 及其以下版本并不会有这种情况。</p>
+<a id="more"></a>
+<ul>
+<li><strong>跳转代码如下：</strong></li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> URLWithString:<span class="string">@"prefs:root=MOBILE_DATA_SETTINGS_ID"</span>];</div><div class="line"><span class="keyword">if</span> ([[<span class="built_in">UIApplication</span> sharedApplication] canOpenURL:url])</div><div class="line">&#123;</div><div class="line">    [[<span class="built_in">UIApplication</span> sharedApplication] openURL:url];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>错误打印如下：</strong></li>
+</ul>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-<span class="string">canOpenURL:</span> failed <span class="keyword">for</span> <span class="string">URL:</span> <span class="string">"prefs:root=MOBILE_DATA_SETTINGS_ID"</span> - <span class="string">error:</span> <span class="string">"The operation couldn’t be completed. (OSStatus error -10814.)"</span></div></pre></td></tr></table></figure>
+<h2 id="查阅实验"><a href="#查阅实验" class="headerlink" title="查阅实验"></a>查阅实验</h2><p>初始通过搜索查阅发现有很多人的文章是这样子说的：</p>
+<blockquote>
+<p>在iOS 9中，隐私控制已禁止开发者通过openURL:方法查询设备上是否安装了哪些APP应用。苹果禁止开发者查询设备上是否安装了某款APP。</p>
+</blockquote>
+<p>如在 <a href="http://www.cocoachina.com/ios/20161024/17824.html" target="_blank" rel="external">iOS10适配：被弃用的openURL</a> 一文中。</p>
+<p>但是通过在 <a href="http://stackoverflow.com" target="_blank" rel="external">stackoverflow</a> 的搜索与自我研究实验最终发现并非如此。</p>
+<h2 id="结论分析"><a href="#结论分析" class="headerlink" title="结论分析"></a>结论分析</h2><p>其实在 iOS 10 中我们是可以通过 <code>canOpenURL:</code> 方法查询设备上是否安装了那 app 应用。只不过是 URL 的 scheme 有所变化。</p>
+<p>iOS 10 把之前 <code>prefs</code> 开头的 <code>URL Schemes</code> 改成了 <code>Prefs</code> 开头，同样类似的还有 <code>Mobilephone://</code> <code>Clock-alarm://</code> <code>Photos://</code> 等等（后面对其有总结）。把这个改好后在 <code>Widget</code> 里面确实可以使用了，但是在 <code>app</code> 中使用的时候依据会报如上类似的错误。这个时候需要在前面加上 <code>App-</code> 这是奇迹就发生了。</p>
+<ul>
+<li><strong>示例代码</strong></li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> URLWithString:<span class="string">@"App-Prefs:root=MOBILE_DATA_SETTINGS_ID"</span>];</div><div class="line"><span class="keyword">if</span> ([[<span class="built_in">UIApplication</span> sharedApplication] canOpenURL:url])</div><div class="line">&#123;</div><div class="line">    [[<span class="built_in">UIApplication</span> sharedApplication] openURL:url];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="些许扩展"><a href="#些许扩展" class="headerlink" title="些许扩展"></a>些许扩展</h2><h3 id="UIApplicationOpenSettingsURLString"><a href="#UIApplicationOpenSettingsURLString" class="headerlink" title="UIApplicationOpenSettingsURLString"></a>UIApplicationOpenSettingsURLString</h3><p>以前打开设置页面大多是通过这种方式打开，但是现在最低适配已经到 iOS 8 了这意味着什么? iOS 8 以前版本不用适配了。停止心中的喜悦，回归正题，其实在 iOS 8.0 的时候就推出了一种跳转到 <code>app 自己设置页面</code>的一个 String 那就是 <code>UIApplicationOpenSettingsURLString</code> 我们可以通过</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[[<span class="built_in">UIApplication</span> sharedApplication] openURL:[<span class="built_in">NSURL</span> URLWithString:<span class="built_in">UIApplicationOpenSettingsURLString</span>]];</div></pre></td></tr></table></figure>
+<p>来实现跳转到<code>本应用</code>的设置界面进行设置。</p>
+<h3 id="openURL-options-completionHandler"><a href="#openURL-options-completionHandler" class="headerlink" title="openURL:options:completionHandler:"></a>openURL:options:completionHandler:</h3><p>在查看 openURL: 方法的时候无意中发现他已经被废弃了，而用另一个方法所代替。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">BOOL</span>)openURL:(<span class="built_in">NSURL</span>*)url </div><div class="line"><span class="built_in">NS_DEPRECATED_IOS</span>(<span class="number">2</span>_0, <span class="number">10</span>_0, </div><div class="line"><span class="string">"Please use openURL:options:completionHandler: instead"</span>) <span class="built_in">NS_EXTENSION_UNAVAILABLE_IOS</span>(<span class="string">""</span>);</div></pre></td></tr></table></figure>
+<p>那么 <code>openURL:options:completionHandler:</code> 这个方法怎样使用呢？<br>在官方文档 <a href="https://developer.apple.com/library/content/releasenotes/General/WhatsNewIniOS/Articles/iOS10.html" target="_blank" rel="external">iOS UIKit</a> 部分中介绍到</p>
+<blockquote>
+<p>The new UIApplication method openURL:options:completionHandler:, which is executed asynchronously and calls the specified completion handler on the main queue (this method replaces openURL:).</p>
+</blockquote>
+<p>意思就不解释了很容易理解</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[[<span class="built_in">UIApplication</span> sharedApplication] openURL:[<span class="built_in">NSURL</span> URLWithString:str]</div><div class="line"> options:@&#123;<span class="built_in">UIApplicationOpenURLOptionUniversalLinksOnly</span>:@YES&#125;</div><div class="line"> completionHandler:^(<span class="built_in">BOOL</span> success) &#123;</div><div class="line">   <span class="comment">// 判断打开成功与否回调处理</span></div><div class="line"> &#125;];</div></pre></td></tr></table></figure>
+<p> 这里对其简单的介绍，与 openURL: 功能类似，只是将 openURL: 返回的是否打开成功的布尔值写在回调中，并且添加了一个 options 参数，下面对 options 参数进行简单介绍。</p>
+<p> <code>options</code> 是一个 <code>NSDictionary&lt;NSString *, id&gt; *</code> 这个类型的字典，目前在 UIApplication 头文件中，可传入参数 Key 只有一个 <code>UIApplicationOpenURLOptionUniversalLinksOnly</code>，其对应的 Value 为布尔值封装的 <code>NSNumber</code> 对象，默认为 False。官方文档是这个样子说的</p>
+<blockquote>
+<p>the method opens the URL only if the URL is a valid universal link and there is an installed app capable of opening that URL. The value of this key is an NSNumber object containing a Boolean value.</p>
+</blockquote>
+<p> 也就是说只有在这个 URL 是<code>有效</code>，并且<code>安装了</code>该 app 的时候才能打开该 URL。否则就不能打开也就是回调的 success 的布尔值为 False，也就是不能通过Safari等其他应用来打开这个URL。</p>
+<h3 id="iOS-10-部分-Schemes"><a href="#iOS-10-部分-Schemes" class="headerlink" title="iOS 10 部分 Schemes"></a>iOS 10 部分 Schemes</h3><p>电池电量 Prefs:root=BATTERY_USAGE<br>通用设置 Prefs:root=General<br>存储空间 Prefs:root=General&amp;path=STORAGE_ICLOUD_USAGE/DEVICE_STORAGE<br>蜂窝数据 Prefs:root=MOBILE_DATA_SETTINGS_ID<br>Wi-Fi 设置 Prefs:root=WIFI<br>蓝牙设置 Prefs:root=Bluetooth<br>定位设置 Prefs:root=Privacy&amp;path=LOCATION<br>辅助功能 Prefs:root=General&amp;path=ACCESSIBILITY<br>关于手机 Prefs:root=General&amp;path=About<br>键盘设置 Prefs:root=General&amp;path=Keyboard<br>显示设置 Prefs:root=DISPLAY<br>声音设置 Prefs:root=Sounds<br>App Store 设置 Prefs:root=STORE<br>墙纸设置 Prefs:root=Wallpaper<br>打开电话 Mobilephone://<br>世界时钟 Clock-worldclock://<br>闹钟 Clock-alarm://<br>秒表 Clock-stopwatch://<br>倒计时 Clock-timer://<br>打开相册 Photos://  </p>
+<p><a href="http://www.jianshu.com/p/32ca4bcda3d1" target="_blank" rel="external">iOS 10 以前的 URL schemes</a></p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持 fandy</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2016/10/01/iOS/Sequence函数/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2016/11/15/iOS/网络缓存/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
+    
+    var disqus_url = 'https://fandyliu.github.io/2016/10/27/iOS/iOS10跳转系统设置页面/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

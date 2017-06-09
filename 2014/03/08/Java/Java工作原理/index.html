@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>Java 运行原理 | Fandy&#39;s Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="运行,原理," />
+  
+
+  <meta name="description" content="JVM(Java Virtual Machine）：Java 虚拟机，它是运行所有 Java 程序的虚拟计算机，用来识别和翻译字节码文件的软件。  JRE(Java Runtime Environment)：Java 运行环境，如果要运行 Java 程序，就需要 JRE 的支持，JRE里包含 JVM。  JDK(Java Development Kit)：Java开发工具，包含开发 Java 程">
+<meta name="keywords" content="运行,原理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 运行原理">
+<meta property="og:url" content="https://fandyliu.github.io/2014/03/08/Java/Java工作原理/index.html">
+<meta property="og:site_name" content="Fandy&#39;s Blog">
+<meta property="og:description" content="JVM(Java Virtual Machine）：Java 虚拟机，它是运行所有 Java 程序的虚拟计算机，用来识别和翻译字节码文件的软件。  JRE(Java Runtime Environment)：Java 运行环境，如果要运行 Java 程序，就需要 JRE 的支持，JRE里包含 JVM。  JDK(Java Development Kit)：Java开发工具，包含开发 Java 程">
+<meta property="og:image" content="http://ooxag17nr.bkt.clouddn.com/Java/Java%E5%9F%BA%E7%A1%80%E5%8E%9F%E7%90%86/Java%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86.jpg">
+<meta property="og:image" content="http://ooxag17nr.bkt.clouddn.com/Java/Java%E5%9F%BA%E7%A1%80%E5%8E%9F%E7%90%86/Java%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%8E%9F%E7%90%86.jpg">
+<meta property="og:image" content="http://ooxag17nr.bkt.clouddn.com/Java/Java%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/JVM7%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E5%9B%BE.jpg">
+<meta property="og:updated_time" content="2014-03-08T14:59:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java 运行原理">
+<meta name="twitter:description" content="JVM(Java Virtual Machine）：Java 虚拟机，它是运行所有 Java 程序的虚拟计算机，用来识别和翻译字节码文件的软件。  JRE(Java Runtime Environment)：Java 运行环境，如果要运行 Java 程序，就需要 JRE 的支持，JRE里包含 JVM。  JDK(Java Development Kit)：Java开发工具，包含开发 Java 程">
+<meta name="twitter:image" content="http://ooxag17nr.bkt.clouddn.com/Java/Java%E5%9F%BA%E7%A1%80%E5%8E%9F%E7%90%86/Java%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86.jpg">
+
+  
+
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-的运行原理"><span class="toc-text">Java 的运行原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-跨平台原理"><span class="toc-text">Java 跨平台原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CLASSPAT-的设置"><span class="toc-text">CLASSPAT 的设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JVM-内存介绍"><span class="toc-text">JVM 内存介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JVM7逻辑内存划分"><span class="toc-text">JVM7逻辑内存划分:</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Java/Java工作原理" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Java 运行原理</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2014.03.08</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Fandy</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://fandyliu.github.io/2014/03/08/Java/Java工作原理/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <ul>
+<li><p><code>JVM</code>(Java Virtual Machine）：Java 虚拟机，它是运行所有 Java 程序的虚拟计算机，用来识别和翻译字节码文件的软件。</p>
+</li>
+<li><p><code>JRE</code>(Java Runtime Environment)：Java 运行环境，如果要运行 Java 程序，就需要 JRE 的支持，JRE里包含 JVM。</p>
+</li>
+<li><p><code>JDK</code>(Java Development Kit)：Java开发工具，包含开发 Java 程序的所有工具，如 javac 和 java 等，JDK 里包含 JRE。</p>
+</li>
+</ul>
+<a id="more"></a>
+<h2 id="Java-的运行原理"><a href="#Java-的运行原理" class="headerlink" title="Java 的运行原理"></a>Java 的运行原理</h2><p>Java 源代码是自然语言编写的不能被计算机识别，由编译器编译源代码，产生字节码文件，字节码也不是二进制的，他需要 JVM 的机器来解析。</p>
+<p><img src="http://ooxag17nr.bkt.clouddn.com/Java/Java%E5%9F%BA%E7%A1%80%E5%8E%9F%E7%90%86/Java%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86.jpg" alt="Java运行原理"></p>
+<p><strong>由此可以看出 Java 即是编译型语言又是解释性语言</strong></p>
+<h2 id="Java-跨平台原理"><a href="#Java-跨平台原理" class="headerlink" title="Java 跨平台原理"></a>Java 跨平台原理</h2><p>通过编译器将 .java 结尾的源文件，编译为 .class 结尾的字节码文件，字节码文件可以在 JVM 上解析成二进制文件告诉操作系统，由于 JVM 在不同的系统平台中都有，从而实现跨平台。</p>
+<p><img src="http://ooxag17nr.bkt.clouddn.com/Java/Java%E5%9F%BA%E7%A1%80%E5%8E%9F%E7%90%86/Java%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%8E%9F%E7%90%86.jpg" alt="Java运行原理"></p>
+<h2 id="CLASSPAT-的设置"><a href="#CLASSPAT-的设置" class="headerlink" title="CLASSPAT 的设置"></a>CLASSPAT 的设置</h2><p>CLASSPATH：顾名思义就是 .class 文件的路径，表示JVM从哪里去寻找 .class 文件。</p>
+<ul>
+<li>在 java5 之前 CLASSPATH 没有默认值，要是设置成当前路径的话，得使用“.”。</li>
+</ul>
+<p>若<code>CLASSPATH=.;d:/fandy/*</code>，就表示先在当前目录找 .class 文件，要是没找到就去 <code>d:/fandy/*</code> 目录找（注意分号是英文的否则会配置失败）。</p>
+<p>若使用 Java5 以前的版本，设置 CLASSPATH 应该是：<br><code>.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar</code><br>其中 dt.jar 是关于运行环境的类库，主要是 swing 的包；tools.jar 是工具类库；</p>
+<ul>
+<li>从 Java5 开始 CLASSPATH 默认就是当前路径，一般情况下不需再指定。</li>
+</ul>
+<p>后来 SUN 公司改进了 JDK 设计，JRE 会自动搜索当前路径下的 jar 包，并自动加载 dt.jar 和 tools.jar。那么从Java5开始，就不必为设置 CLASSPATH 变量了。</p>
+<h2 id="JVM-内存介绍"><a href="#JVM-内存介绍" class="headerlink" title="JVM 内存介绍"></a>JVM 内存介绍</h2><p><img src="http://ooxag17nr.bkt.clouddn.com/Java/Java%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/JVM7%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E5%9B%BE.jpg" alt=""></p>
+<h3 id="JVM7逻辑内存划分"><a href="#JVM7逻辑内存划分" class="headerlink" title="JVM7逻辑内存划分:"></a>JVM7逻辑内存划分:</h3><p><code>程序计数器</code>：当前线程所执行的字节码的行号指示器。</p>
+<p><code>本地方法栈</code>：为虚拟机使用的 native 方法服务。</p>
+<p><code>Java 虚拟机栈</code>：描述 Java 方法执行的内存模型，每个方法被执行的时候都会同时创建一个栈帧用于存储局部变量表、操作栈、动态链接、方法出口等信息。</p>
+<p><code>Java堆</code>：被所有线程共享的一块内存区域，在虚拟机启动时创建。所有的对象实例以及数组都要在堆上分配，堆存储的是对象（一般使用new创建的数据就是对象）。</p>
+<p><code>方法区</code>：线程共享的内存区域，存储已被虚拟机加载的类信息、常量、静态变量即时编译器编译后的代码数据等(这个区域的内存回收目标主要是针对常量池的回收和对类型的卸载)。</p>
+<p>Java8 中，没有方法区，取而代之的是元数据区，其用作是和方法区一样的，但是这片内存是可以动态的跟系统申请的，当不够用时就向系统申请。</p>
+<p><code>GC (Garbage Collection)</code>: 垃圾回收器。<br>Java 的 GC 简单理解为：自动垃圾回收机制<br>程序员就不需要再手动的去控制内存的释放。当JVM发觉内存资源紧张的时候，就会自动地去清理无用对象（没有被引用到的对象）所占用的内存空间。</p>
+<p>我们不能控制GC</p>
+<p>注意：并不是一产生垃圾就马上执行GC，这完全取决于JVM的调度，程序员无法控制。</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持 fandy</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="hide pull-left" href="/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2014/04/18/Java/Java设计模式/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
+    
+    var disqus_url = 'https://fandyliu.github.io/2014/03/08/Java/Java工作原理/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

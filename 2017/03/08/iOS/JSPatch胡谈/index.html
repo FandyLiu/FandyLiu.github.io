@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>JSPatch 胡谈 | Fandy&#39;s Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="JSPatch,热更新,iOS," />
+  
+
+  <meta name="description" content="今天早上一到公司，就收到苹果的一封邮件。相信大家都知道平常收到苹果的邮件肯定没有什么好事。于是在诚惶诚恐中打开了他，发现真不是什么好事。">
+<meta name="keywords" content="JSPatch,热更新,iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSPatch 胡谈">
+<meta property="og:url" content="https://fandyliu.github.io/2017/03/08/iOS/JSPatch胡谈/index.html">
+<meta property="og:site_name" content="Fandy&#39;s Blog">
+<meta property="og:description" content="今天早上一到公司，就收到苹果的一封邮件。相信大家都知道平常收到苹果的邮件肯定没有什么好事。于是在诚惶诚恐中打开了他，发现真不是什么好事。">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1489390361578&di=be37caae8dd91c0db308e25f41d66dc6&imgtype=0&src=http%3A%2F%2Fwww.techug.com%2Fwordpress%2Fwp-content%2Fuploads%2F2017%2F03%2F1488954657473130.jpg">
+<meta property="og:updated_time" content="2017-03-09T14:31:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JSPatch 胡谈">
+<meta name="twitter:description" content="今天早上一到公司，就收到苹果的一封邮件。相信大家都知道平常收到苹果的邮件肯定没有什么好事。于是在诚惶诚恐中打开了他，发现真不是什么好事。">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1489390361578&di=be37caae8dd91c0db308e25f41d66dc6&imgtype=0&src=http%3A%2F%2Fwww.techug.com%2Fwordpress%2Fwp-content%2Fuploads%2F2017%2F03%2F1488954657473130.jpg">
+
+  
+
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-iOS/JSPatch胡谈" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">JSPatch 胡谈</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.03.08</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Fandy</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://fandyliu.github.io/2017/03/08/iOS/JSPatch胡谈/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>今天早上一到公司，就收到苹果的一封邮件。相信大家都知道平常收到苹果的邮件肯定没有什么好事。于是在诚惶诚恐中打开了他，发现真不是什么好事。</p>
+<p><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1489390361578&di=be37caae8dd91c0db308e25f41d66dc6&imgtype=0&src=http%3A%2F%2Fwww.techug.com%2Fwordpress%2Fwp-content%2Fuploads%2F2017%2F03%2F1488954657473130.jpg" width="75%"></p>
+<a id="more"></a>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">Dear **,</div><div class="line"></div><div class="line">Your app, E+ 实名认证 (<span class="number">1116050607</span>), does <span class="keyword">not</span> comply <span class="keyword">with</span> <span class="literal">one</span> <span class="keyword">or</span> more App Review Guidelines.</div><div class="line"></div><div class="line">For details, <span class="keyword">or</span> <span class="built_in">to</span> directly contact <span class="keyword">the</span> App Review team, go <span class="built_in">to</span> <span class="keyword">the</span> Resolution Center <span class="keyword">on</span> <span class="title">iTunes</span> <span class="title">Connect</span>.</div><div class="line"></div><div class="line">Regards,</div><div class="line"></div><div class="line">App Store Review</div><div class="line"></div><div class="line">Find solutions <span class="keyword">and</span> share tips <span class="keyword">with</span> Apple developers <span class="built_in">from</span> around <span class="keyword">the</span> world — <span class="keyword">http</span>://devforums.apple.com</div></pre></td></tr></table></figure>
+<p>他告诉我，我的 App 有一项或者多项不符合苹果的<code>审核指南</code>。顺手打开他给的链接到 iTunes Connect 中发现有一个违反政策通知问题。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">2017年3月8日 上午9:33</div><div class="line">发件人 Apple</div><div class="line">Dear Developer,</div><div class="line"></div><div class="line">Your app, extension, and/or linked framework appears to contain code designed explicitly with the capability to <span class="keyword">change</span> your app’s behavior <span class="keyword">or</span> functionality <span class="keyword">after</span> App Review approval, which <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">in</span> compliance <span class="keyword">with</span> <span class="keyword">section</span> <span class="number">3.3</span><span class="number">.2</span> <span class="keyword">of</span> the Apple Developer Program License Agreement <span class="keyword">and</span> App <span class="keyword">Store</span> Review Guideline <span class="number">2.5</span><span class="number">.2</span>. This code, combined <span class="keyword">with</span> a remote <span class="keyword">resource</span>, can facilitate significant changes <span class="keyword">to</span> your app’s behavior compared <span class="keyword">to</span> <span class="keyword">when</span> it was <span class="keyword">initially</span> reviewed <span class="keyword">for</span> the App Store. <span class="keyword">While</span> you may <span class="keyword">not</span> be <span class="keyword">using</span> this functionality currently, it has the potential <span class="keyword">to</span> <span class="keyword">load</span> <span class="keyword">private</span> frameworks, <span class="keyword">private</span> methods, <span class="keyword">and</span> <span class="keyword">enable</span> future feature changes. </div><div class="line"></div><div class="line">This includes <span class="keyword">any</span> code which passes arbitrary <span class="keyword">parameters</span> <span class="keyword">to</span> dynamic methods such <span class="keyword">as</span> dlopen(), dlsym(), respondsToSelector:, performSelector:, method_exchangeImplementations(), <span class="keyword">and</span> running remote scripts <span class="keyword">in</span> <span class="keyword">order</span> <span class="keyword">to</span> <span class="keyword">change</span> app behavior <span class="keyword">or</span> <span class="keyword">call</span> SPI, based <span class="keyword">on</span> the <span class="keyword">contents</span> <span class="keyword">of</span> the downloaded script. Even <span class="keyword">if</span> the remote <span class="keyword">resource</span> <span class="keyword">is</span> <span class="keyword">not</span> intentionally malicious, it could easily be hijacked via a Man <span class="keyword">In</span> The Middle (MiTM) attack, which can pose a serious <span class="keyword">security</span> vulnerability <span class="keyword">to</span> <span class="keyword">users</span> <span class="keyword">of</span> your app.</div><div class="line"></div><div class="line">Please perform an <span class="keyword">in</span>-<span class="keyword">depth</span> review <span class="keyword">of</span> your app <span class="keyword">and</span> remove <span class="keyword">any</span> code, frameworks, <span class="keyword">or</span> SDKs that fall <span class="keyword">in</span> line <span class="keyword">with</span> the functionality described above <span class="keyword">before</span> submitting the <span class="keyword">next</span> <span class="keyword">update</span> <span class="keyword">for</span> your app <span class="keyword">for</span> review.</div><div class="line"></div><div class="line">Best regards,</div><div class="line"></div><div class="line">App <span class="keyword">Store</span> Review</div></pre></td></tr></table></figure>
+<p>说最新协议中，不允许使用<code>动态下发</code>功能，说这个有安全问题。</p>
+<p>不明觉厉，苹果要禁止<code>热更新</code>？上年刚刚根据需求整合进去 <code>JSPatch</code>，今年就被禁用了。无语中。。。</p>
+<p>想起一年前 2016 年初 <a href="http://blog.cnbang.net/internet/2990/" target="_blank" rel="external">JSPatch 安全问题</a> 。</p>
+<p>现在看样子苹果真的要下狠心禁用热更新了。</p>
+<p>打开 github <a href="https://github.com/bang590/JSPatch/issues/746" target="_blank" rel="external">JSPatch/issues/746</a> 和 <a href="https://github.com/facebook/react-native/issues/12778" target="_blank" rel="external">react-native/issues/12778</a>。有很多人对这个话题已经炒炸锅了，尤其是在 JSPatch 中。</p>
+<p>看到不少人说 <code>React Native</code> 要被禁用了，而发出阵阵欢呼！</p>
+<p>但是我个人感觉，从苹果给的邮件可以看出他并不是针对 <code>React Native</code> 的，而是针对热更新的禁止。苹果一直希望上架的应用的<code>可控性</code>。但是热更新打破了这个事件。一些开发者，通过苹果审核上架后，通过动态下发新的功能，从而<code>避过</code>审核，调用私有 API 。这种行为是苹果严厉禁止的。</p>
+<p>个人感觉热更新是个在移动端多年开发中的一个很不错的产物，通过这个功能可以加快对代码 中 bug 的解决速率，可以避免由于一个小小的问题而引起重新上架问题。而且苹果以前<code>上架很慢</code>，导致各公司很头痛，现在好多了。先不说上架慢这个问题，上架以后用户要更新吧，三两天一上架，那么就会提醒用户更新 App，这必然影响用户的体验。</p>
+<p>当然我们公司的 App，并不会有这么快的上架频率，尽量将 bug 扼杀在开发、测试和预生产环节。这就要求公司的一些强大正规的开发体系支持了。对于小公司而言就没办法了，热更新对他们带来的方便是难以替代的。</p>
+<p>但是苹果的性格大家都知道，说不能用就不能用。</p>
+<p>对此我的态度是静观其变吧。</p>
+<p><strong><em>更新 2017-3-9</em></strong></p>
+<p>这里是 bang 对这个问题的回复：</p>
+<p><a href="http://blog.cnbang.net/internet/3374/" target="_blank" rel="external">关于苹果警告</a></p>
+<p>这里是集成热更新的三方框架的处理情况汇总，大家可以看着排除一下，如果有用到那些可以及时更新。</p>
+<p><a href="https://github.com/bang590/JSPatch/issues/751" target="_blank" rel="external">三方框架处理进展</a></p>
+<p>还是老老实实去除 JSPatch。</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持 fandy</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/02/07/iOS/URLEncode/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2017/06/04/Java/资源文件/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
+    
+    var disqus_url = 'https://fandyliu.github.io/2017/03/08/iOS/JSPatch胡谈/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>Swift 中的一些函数 | Fandy&#39;s Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Swift,函数," />
+  
+
+  <meta name="description" content="Swift中一些简单函数的总结">
+<meta name="keywords" content="Swift,函数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift 中的一些函数">
+<meta property="og:url" content="https://fandyliu.github.io/2015/10/01/iOS/Swift中的一些函数/index.html">
+<meta property="og:site_name" content="Fandy&#39;s Blog">
+<meta property="og:description" content="Swift中一些简单函数的总结">
+<meta property="og:updated_time" content="2015-10-01T06:15:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Swift 中的一些函数">
+<meta name="twitter:description" content="Swift中一些简单函数的总结">
+
+  
+
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#sequence"><span class="toc-text">sequence</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#assert"><span class="toc-text">assert</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#enumerate"><span class="toc-text">enumerate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#zip"><span class="toc-text">zip</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#min-max"><span class="toc-text">min max</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sort-排序"><span class="toc-text">sort 排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#abs-signedNumber-：返回数字的绝对值"><span class="toc-text">abs(signedNumber)：返回数字的绝对值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dump-object-：打印出某个对象object的所有信息"><span class="toc-text">dump(object)：打印出某个对象object的所有信息</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-iOS/Swift中的一些函数" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Swift 中的一些函数</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2015.10.01</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Fandy</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://fandyliu.github.io/2015/10/01/iOS/Swift中的一些函数/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>Swift中一些简单函数的总结</p>
+<a id="more"></a>
+<h2 id="sequence"><a href="#sequence" class="headerlink" title="sequence"></a>sequence</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 创建一个序列（Sequence）来表示填充的数据</span></div><div class="line"><span class="comment">// 有很多的方法去创建序列，但是重载的 sequence() 函数可能是最简单的方式。</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> a = [<span class="number">1</span>, <span class="number">2</span>]</div><div class="line"></div><div class="line">a.reserveCapacity(<span class="number">256</span>)</div><div class="line"></div><div class="line">a += sequence(first: <span class="number">3</span>, next: &#123;$<span class="number">0</span> &lt; <span class="number">1000</span> ? ($<span class="number">0</span> + <span class="number">3</span>) * <span class="number">2</span> : <span class="literal">nil</span>&#125;)</div></pre></td></tr></table></figure>
+<h2 id="assert"><a href="#assert" class="headerlink" title="assert"></a>assert</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 参数如果为`true`则继续，否则抛出异常</span></div><div class="line"><span class="built_in">assert</span>(<span class="literal">true</span>)</div></pre></td></tr></table></figure>
+<h2 id="enumerate"><a href="#enumerate" class="headerlink" title="enumerate"></a>enumerate</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">// 第一个值为原来元素所在的位置`index`，第二个为原来序列中的元素</span></div><div class="line"><span class="comment">// unresolved identifier 'enumerate' swift 3.0</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> (i, j) <span class="keyword">in</span> <span class="built_in">enumerate</span>([<span class="string">"A"</span>, <span class="string">"B"</span>]) &#123;</div><div class="line"></div><div class="line">    <span class="comment">// "0:A", "1:B" will be printed</span></div><div class="line"></div><div class="line">    <span class="built_in">println</span>(<span class="string">"<span class="subst">\(i)</span>:<span class="subst">\(j)</span>"</span>)</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="zip"><a href="#zip" class="headerlink" title="zip"></a>zip</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1</span></div><div class="line"><span class="keyword">let</span> words = [<span class="string">"one"</span>, <span class="string">"two"</span>, <span class="string">"three"</span>, <span class="string">"four"</span>]</div><div class="line"><span class="keyword">let</span> numbers = <span class="number">1</span>...<span class="number">4</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> (word, number) <span class="keyword">in</span> <span class="built_in">zip</span>(words, numbers) &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"<span class="subst">\(word)</span>: <span class="subst">\(number)</span>"</span>)</div><div class="line">&#125;</div><div class="line"><span class="comment">// Prints "one: 1"</span></div><div class="line"><span class="comment">// Prints "two: 2</span></div><div class="line"><span class="comment">// Prints "three: 3"</span></div><div class="line"><span class="comment">// Prints "four: 4"</span></div><div class="line"></div><div class="line"><span class="keyword">let</span> naturalNumbers = <span class="number">1</span>...<span class="type">Int</span>.<span class="built_in">max</span></div><div class="line"><span class="keyword">let</span> zipped = <span class="type">Array</span>(<span class="built_in">zip</span>(words, naturalNumbers))</div><div class="line"><span class="comment">// zipped == [("one", 1), ("two", 2), ("three", 3), ("four", 4)]</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// 2</span></div><div class="line"><span class="keyword">let</span> names: <span class="type">Set</span> = [<span class="string">"Sofia"</span>, <span class="string">"Camilla"</span>, <span class="string">"Martina"</span>, <span class="string">"Mateo"</span>, <span class="string">"Nicolás"</span>]</div><div class="line"><span class="keyword">var</span> shorterIndices: [<span class="type">SetIndex</span>&lt;<span class="type">String</span>&gt;] = []</div><div class="line"><span class="keyword">for</span> (i, name) <span class="keyword">in</span> <span class="built_in">zip</span>(names.<span class="built_in">indices</span>, names) &#123;</div><div class="line">    <span class="keyword">if</span> name.characters.<span class="built_in">count</span> &lt;= <span class="number">5</span> &#123;</div><div class="line">        shorterIndices.append(i)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> shorterIndices &#123;</div><div class="line">    <span class="built_in">print</span>(names[i])</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// Prints "Sofia"</span></div><div class="line"><span class="comment">// Prints "Mateo"</span></div></pre></td></tr></table></figure>
+<h2 id="min-max"><a href="#min-max" class="headerlink" title="min max"></a>min max</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 2</span></div><div class="line"><span class="built_in">min</span>(<span class="number">8</span>, <span class="number">2</span>, <span class="number">3</span>)</div><div class="line"></div><div class="line"><span class="comment">// 8</span></div><div class="line"><span class="built_in">max</span>(<span class="number">8</span>, <span class="number">2</span>, <span class="number">3</span>)</div></pre></td></tr></table></figure>
+<h2 id="sort-排序"><a href="#sort-排序" class="headerlink" title="sort 排序"></a>sort 排序</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">sort</span>([<span class="string">"B"</span>, <span class="string">"A"</span>]) &#123;</div><div class="line"></div><div class="line">    <span class="comment">// "A", "B" will be printed</span></div><div class="line"></div><div class="line">    <span class="built_in">println</span>(i)</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="abs-signedNumber-：返回数字的绝对值"><a href="#abs-signedNumber-：返回数字的绝对值" class="headerlink" title="abs(signedNumber)：返回数字的绝对值"></a>abs(signedNumber)：返回数字的绝对值</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">abs</span>(-<span class="number">1</span>) == <span class="number">1</span></div><div class="line"></div><div class="line"><span class="built_in">abs</span>(-<span class="number">42</span>) == <span class="number">42</span></div><div class="line"></div><div class="line"><span class="built_in">abs</span>(<span class="number">42</span>) == <span class="number">42</span></div></pre></td></tr></table></figure>
+<h2 id="dump-object-：打印出某个对象object的所有信息"><a href="#dump-object-：打印出某个对象object的所有信息" class="headerlink" title="dump(object)：打印出某个对象object的所有信息"></a>dump(object)：打印出某个对象object的所有信息</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">var</span> languages = [<span class="string">"Swift"</span>, <span class="string">"Objective-C"</span>]</div><div class="line"></div><div class="line"><span class="built_in">dump</span>(languages)</div><div class="line"></div><div class="line"><span class="comment">// Prints:</span></div><div class="line"></div><div class="line"><span class="comment">// ▿ 2 elements</span></div><div class="line"></div><div class="line"><span class="comment">// - [0]: Swift</span></div><div class="line"></div><div class="line"><span class="comment">// - [1]: Objective-C</span></div></pre></td></tr></table></figure>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持 fandy</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2015/06/04/Java/Java与Eclipse/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2015/10/07/iOS/在Xcode中的iPhoneCPU指令集/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
+    
+    var disqus_url = 'https://fandyliu.github.io/2015/10/01/iOS/Swift中的一些函数/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>网络缓存 | Fandy&#39;s Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="网络,缓存,NSURLRequestCachePolicy,NSURLCache," />
+  
+
+  <meta name="description" content="最近开发中遇到了一个网络缓存问题，在与 H5 交互的时候当创建 NSURLRequest 的时候调用 requestWithURL: cachePolicy: timeoutInterval: 这个方法设置缓存策略为默认的策略 NSURLRequestUseProtocolCachePolicy。 但当时调试与 H5 进行交互的一些 js 代码的时候， 修改 js 代码，手机 webView 访问">
+<meta name="keywords" content="网络,缓存,NSURLRequestCachePolicy,NSURLCache">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络缓存">
+<meta property="og:url" content="https://fandyliu.github.io/2016/11/15/iOS/网络缓存/index.html">
+<meta property="og:site_name" content="Fandy&#39;s Blog">
+<meta property="og:description" content="最近开发中遇到了一个网络缓存问题，在与 H5 交互的时候当创建 NSURLRequest 的时候调用 requestWithURL: cachePolicy: timeoutInterval: 这个方法设置缓存策略为默认的策略 NSURLRequestUseProtocolCachePolicy。 但当时调试与 H5 进行交互的一些 js 代码的时候， 修改 js 代码，手机 webView 访问">
+<meta property="og:image" content="https://fandyliu.github.io/2016/11/15/iOS/网络缓存/Header.png">
+<meta property="og:image" content="https://fandyliu.github.io/2016/11/15/iOS/网络缓存/Cache_directive.png">
+<meta property="og:image" content="https://fandyliu.github.io/2016/11/15/iOS/网络缓存/Cache.png">
+<meta property="og:updated_time" content="2016-11-15T10:21:31.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="网络缓存">
+<meta name="twitter:description" content="最近开发中遇到了一个网络缓存问题，在与 H5 交互的时候当创建 NSURLRequest 的时候调用 requestWithURL: cachePolicy: timeoutInterval: 这个方法设置缓存策略为默认的策略 NSURLRequestUseProtocolCachePolicy。 但当时调试与 H5 进行交互的一些 js 代码的时候， 修改 js 代码，手机 webView 访问">
+<meta name="twitter:image" content="https://fandyliu.github.io/2016/11/15/iOS/网络缓存/Header.png">
+
+  
+
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#NSURLRequestCachePolicy"><span class="toc-text">NSURLRequestCachePolicy</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#NSURLRequestUseProtocolCachePolicy-0"><span class="toc-text">NSURLRequestUseProtocolCachePolicy = 0</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NSURLRequestReloadIgnoringLocalCacheData-1"><span class="toc-text">NSURLRequestReloadIgnoringLocalCacheData = 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NSURLRequestReloadIgnoringLocalAndRemoteCacheData-4-Unimplemented"><span class="toc-text">NSURLRequestReloadIgnoringLocalAndRemoteCacheData = 4 (Unimplemented)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NSURLRequestReloadIgnoringCacheData-NSURLRequestReloadIgnoringLocalCacheData"><span class="toc-text">NSURLRequestReloadIgnoringCacheData = NSURLRequestReloadIgnoringLocalCacheData</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NSURLRequestReturnCacheDataElseLoad-2"><span class="toc-text">NSURLRequestReturnCacheDataElseLoad = 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NSURLRequestReturnCacheDataDontLoad-3"><span class="toc-text">NSURLRequestReturnCacheDataDontLoad = 3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NSURLRequestReloadRevalidatingCacheData-5-Unimplemented"><span class="toc-text">NSURLRequestReloadRevalidatingCacheData = 5 (Unimplemented)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP-缓存语义"><span class="toc-text">HTTP 缓存语义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Request-Cache-Headers"><span class="toc-text">Request Cache Headers</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Response-Cache-Headers"><span class="toc-text">Response Cache Headers</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NSURLCache"><span class="toc-text">NSURLCache</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#本地缓存"><span class="toc-text">本地缓存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tips"><span class="toc-text">Tips:</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#URL-Loading-System-默认只支持如下5中协议"><span class="toc-text">URL Loading System 默认只支持如下5中协议:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#链接"><span class="toc-text">链接:</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-iOS/网络缓存" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">网络缓存</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.11.15</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Fandy</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://fandyliu.github.io/2016/11/15/iOS/网络缓存/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>最近开发中遇到了一个网络缓存问题，在与 H5 交互的时候当创建 <code>NSURLRequest</code> 的时候调用 <code>requestWithURL: cachePolicy: timeoutInterval:</code> 这个方法设置缓存策略为默认的策略 <code>NSURLRequestUseProtocolCachePolicy</code>。 但当时调试与 H5 进行交互的一些 js 代码的时候， 修改 js 代码，手机 webView 访问没有变化，但是用浏览器打开 H5 界面确没有问题。最终发现是由于网络缓存问题，在这里简单总结一下缓存策略。<br><a id="more"></a></p>
+<p>使用缓存的目的是为了使用的应用程序能更快速的响应用户输入，是程序高效的运行。有时候我们需要将远程web服务器获取的数据缓存起来，减少对同一个url多次请求。</p>
+<p>内存缓存我们可以使用 sdk 中的 NSURLCache 类。NSURLRequest 需要一个缓存参数来说明它请求的 url 何如缓存数据的，我们先看下它的 CachePolicy 类型。</p>
+<h2 id="NSURLRequestCachePolicy"><a href="#NSURLRequestCachePolicy" class="headerlink" title="NSURLRequestCachePolicy"></a>NSURLRequestCachePolicy</h2><h3 id="NSURLRequestUseProtocolCachePolicy-0"><a href="#NSURLRequestUseProtocolCachePolicy-0" class="headerlink" title="NSURLRequestUseProtocolCachePolicy = 0"></a>NSURLRequestUseProtocolCachePolicy = 0</h3><p>默认的缓存策略， 如果缓存不存在，直接从服务端获取。如果缓存存在，会根据response中的Cache-Control字段判断下一步操作，如: Cache-Control字段为must-revalidata，则询问服务端该数据是否有更新，无更新的话直接返回给用户缓存数据，若已更新，则请求服务端</p>
+<h3 id="NSURLRequestReloadIgnoringLocalCacheData-1"><a href="#NSURLRequestReloadIgnoringLocalCacheData-1" class="headerlink" title="NSURLRequestReloadIgnoringLocalCacheData = 1"></a>NSURLRequestReloadIgnoringLocalCacheData = 1</h3><p>忽略本地缓存数据，直接请求服务端。</p>
+<h3 id="NSURLRequestReloadIgnoringLocalAndRemoteCacheData-4-Unimplemented"><a href="#NSURLRequestReloadIgnoringLocalAndRemoteCacheData-4-Unimplemented" class="headerlink" title="NSURLRequestReloadIgnoringLocalAndRemoteCacheData = 4 (Unimplemented)"></a>NSURLRequestReloadIgnoringLocalAndRemoteCacheData = 4 (<em>Unimplemented</em>)</h3><p>忽略本地缓存，代理服务器以及其他中介，直接请求源服务端。</p>
+<h3 id="NSURLRequestReloadIgnoringCacheData-NSURLRequestReloadIgnoringLocalCacheData"><a href="#NSURLRequestReloadIgnoringCacheData-NSURLRequestReloadIgnoringLocalCacheData" class="headerlink" title="NSURLRequestReloadIgnoringCacheData = NSURLRequestReloadIgnoringLocalCacheData"></a>NSURLRequestReloadIgnoringCacheData = NSURLRequestReloadIgnoringLocalCacheData</h3><p>忽略本地缓存数据</p>
+<h3 id="NSURLRequestReturnCacheDataElseLoad-2"><a href="#NSURLRequestReturnCacheDataElseLoad-2" class="headerlink" title="NSURLRequestReturnCacheDataElseLoad = 2"></a>NSURLRequestReturnCacheDataElseLoad = 2</h3><p>有缓存就使用，不管其有效性(即忽略Cache-Control字段)， 无则请求服务端。</p>
+<h3 id="NSURLRequestReturnCacheDataDontLoad-3"><a href="#NSURLRequestReturnCacheDataDontLoad-3" class="headerlink" title="NSURLRequestReturnCacheDataDontLoad = 3"></a>NSURLRequestReturnCacheDataDontLoad = 3</h3><p>死活加载本地缓存。 没有就失败。 (确定当前无网络时使用)</p>
+<h3 id="NSURLRequestReloadRevalidatingCacheData-5-Unimplemented"><a href="#NSURLRequestReloadRevalidatingCacheData-5-Unimplemented" class="headerlink" title="NSURLRequestReloadRevalidatingCacheData = 5 (Unimplemented)"></a>NSURLRequestReloadRevalidatingCacheData = 5 (<em>Unimplemented</em>)</h3><p>缓存数据必须得得到服务端确认有效才使用(貌似是NSURLRequestUseProtocolCachePolicy中的一种情况)</p>
+<h2 id="HTTP-缓存语义"><a href="#HTTP-缓存语义" class="headerlink" title="HTTP 缓存语义"></a>HTTP 缓存语义</h2><p>HTTP 请求和回应用 <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html" target="_blank" rel="external">headers</a> 来交换元数据，如字符编码、MIME 类型和缓存指令等。</p>
+<h3 id="Request-Cache-Headers"><a href="#Request-Cache-Headers" class="headerlink" title="Request Cache Headers"></a>Request Cache Headers</h3><p><em>在默认情况下，NSURLRequest 会用当前时间决定是否返回缓存的数据。为了更精确地控制，允许使用以下请求头：</em></p>
+<ul>
+<li>If-Modified-Since - 这个请求头与 Last-Modified 回应头相对应。把这个值设为同一终端最后一次请求时返回的 Last-Modified 字段的值。</li>
+<li>If-None-Match - 这个请求头与 Etag 回应头相对应。使用同一终端最后一次请求的 Etag 值。</li>
+</ul>
+<h3 id="Response-Cache-Headers"><a href="#Response-Cache-Headers" class="headerlink" title="Response Cache Headers"></a>Response Cache Headers</h3><p><em>NSHTTPURLResponse 包含多个 HTTP 头，当然也包括以下指令来说明回应应当如何缓存：</em></p>
+<ul>
+<li>Cache-Control - 这个头必须由服务器端指定以开启客户端的 HTTP 缓存功能。这个头的值可能包含 max-age（缓存多久），是公共 public 还是私有 private，或者不缓存 no-cache 等信息。详情请参阅 <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9" target="_blank" rel="external">Cache-Control section of RFC 2616</a>。</li>
+</ul>
+<p><em>除了 Cache-Control 以外，服务器也可能发送一些附加的头用于根据需要有条件地请求：</em></p>
+<ul>
+<li>Last-Modified - 这个头的值表明所请求的资源上次修改的时间。例如，一个客户端请求最近照片的时间线，/photos/timeline，Last-Modified 的值可以是最近一张照片的拍摄时间。</li>
+<li>Etag - 这是 “entity tag” 的缩写，它是一个表示所请求资源的内容的标识符。在实践中，Etag 的值可以是类似于资源的 MD5 之类的东西。这对于那些动态生成的、可能没有明显的 Last-Modified 值的资源非常有用。</li>
+</ul>
+<h2 id="NSURLCache"><a href="#NSURLCache" class="headerlink" title="NSURLCache"></a>NSURLCache</h2><p>NSURLCache 为您的应用的 URL 请求提供了内存中以及磁盘上的综合缓存机制。也就是 NSURLRequest，然后根据我们设置的NSURLCache策略进行相应的缓存.</p>
+<p>当一个请求完成下载来自服务器的回应，一个缓存的回应将在本地保存。下一次同一个请求再发起时，本地保存的回应就会马上返回，不需要连接服务器。NSURLCache 会<code>自动</code>且<code>透明</code>地返回回应。</p>
+<p>为了好好利用 NSURLCache，你需要初始化并设置一个共享的 URL 缓存。在 <code>-application:didFinishLaunchingWithOptions:</code> 中来设置内存缓存与磁盘缓存.</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSURLCache</span> *urlCache = [[<span class="built_in">NSURLCache</span> alloc] initWithMemoryCapacity:<span class="number">4</span> * <span class="number">1024</span> * <span class="number">1024</span> diskCapacity:<span class="number">20</span> * <span class="number">1024</span> * <span class="number">1024</span> diskPath:<span class="literal">nil</span>];</div><div class="line"></div><div class="line">[<span class="built_in">NSURLCache</span> setSharedURLCache:urlCache];</div></pre></td></tr></table></figure>
+<p>缓存策略由请求（客户端）和回应（服务端）分别指定。理解这些策略以及它们如何相互影响，是为您的应用程序找到最佳行为的关键。</p>
+<p>在 NSURLRequestCachePolicy 缓存策略中,默认策略是 UseProtocolCachePolicy 从字面上来看是说，使用协议缓存策略，但是什么是协议缓存策略呢？<br>在HTTP协议的response头中，有一个字段是cache-control，由服务器来告诉客户端如何使用缓存。<br>下面是一个response头<br><img src="/2016/11/15/iOS/网络缓存/Header.png" alt=""></p>
+<p>可以看到cache-control指定的行为是public,max-age=5<br>这里先介绍一下各种指令</p>
+<p><img src="/2016/11/15/iOS/网络缓存/Cache_directive.png" alt=""></p>
+<p>对应上表，可以看出了刚才响应头是要求缓存所有内容，缓存5秒失效，5秒后还要请求远程服务器。<br>对应PHP就是header(“Cache-Control:public,max-age=5”);</p>
+<h2 id="本地缓存"><a href="#本地缓存" class="headerlink" title="本地缓存"></a>本地缓存</h2><p>打开沙盒，发现在 Library/Caches 下面有三个文件<br><img src="/2016/11/15/iOS/网络缓存/Cache.png" alt=""><br>这不就是sqlite么！原来NSURLCache帮我们用sqlite将请求存入了数据库，然后当有相同请求时就会调用缓存！<br>可以想到webView如果加载一个静态页面不用只用请求一次，并且在效果要更新的时候远程请求会有多爽！</p>
+<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips:"></a>Tips:</h2><h3 id="URL-Loading-System-默认只支持如下5中协议"><a href="#URL-Loading-System-默认只支持如下5中协议" class="headerlink" title="URL Loading System 默认只支持如下5中协议:"></a>URL Loading System 默认只支持如下5中协议:</h3><p>其中只有<a href="http://和https://才有缓存策略。" target="_blank" rel="external">http://和https://才有缓存策略。</a></p>
+<ul>
+<li>http://</li>
+<li>https://</li>
+<li>ftp://</li>
+<li>file://</li>
+<li>data://</li>
+</ul>
+<h3 id="链接"><a href="#链接" class="headerlink" title="链接:"></a>链接:</h3><p><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/URLLoadingSystem/URLLoadingSystem.html#//apple_ref/doc/uid/10000165i" target="_blank" rel="external">About the URL Loading System</a></p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持 fandy</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2016/10/27/iOS/iOS10跳转系统设置页面/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2016/12/02/iOS/Xcode提交构建版本时“此构建版本无效”问题/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
+    
+    var disqus_url = 'https://fandyliu.github.io/2016/11/15/iOS/网络缓存/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
